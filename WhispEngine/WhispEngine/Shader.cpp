@@ -15,13 +15,13 @@ SHADER_PROGRAM_SOURCE WhispShader::ParseShader(const std::string& path)
 	
 	while (getline(stream, line))
 	{
-		if (line.find("#shader") != std::string::npos)
+		if (line.find("shader") != std::string::npos)
 		{
-			if (line.find("#vertex") != std::string::npos)
+			if (line.find("vertex") != std::string::npos)
 			{
 				shader_type = SHADER_TYPE::VERTEX;
 			}
-			else if (line.find("#fragment") != std::string::npos)
+			else if (line.find("fragment") != std::string::npos)
 			{
 				shader_type = SHADER_TYPE::FRAGMENT;
 			}

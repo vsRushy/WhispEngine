@@ -15,6 +15,8 @@
 
 #include "Time.h"
 
+#include "Shader.h"
+
 GameTime* Time = nullptr;
 
 Application::Application()
@@ -94,8 +96,13 @@ bool Application::Init()
 	for (auto item = list_modules.begin(); item != list_modules.end() && ret; item++) {
 		ret = (*item)->Start();
 	}
-	
-	
+
+	SHADER_PROGRAM_SOURCE source = WhispShader::ParseShader("Assets/Shaders/shader_test.shader");
+	LOG("VERTEX SHADER");
+	LOG(source.vertex_source.c_str());
+	LOG("FRAGMENT SHADER");
+	LOG(source.fragment_source.c_str());
+
 	return ret;
 }
 
