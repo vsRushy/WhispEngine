@@ -49,8 +49,8 @@ uint WhispShader::CreateShader(const std::string& vertex_shader, const std::stri
 	glLinkProgram(program);
 	glValidateProgram(program);
 
-	glDetachShader(vertex_s);
-	glDetachShader(fragment_s);
+	glDetachShader(program, vertex_s);
+	glDetachShader(program, fragment_s);
 
 	glDeleteShader(vertex_s);
 	glDeleteShader(fragment_s);
