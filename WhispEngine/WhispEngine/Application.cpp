@@ -103,6 +103,9 @@ bool Application::Init()
 	LOG("FRAGMENT SHADER");
 	LOG(source.fragment_source.c_str());
 
+	unsigned int test_shader = WhispShader::CreateShader(source.vertex_source, source.fragment_source);
+	//glUseProgram(test_shader);
+
 	return ret;
 }
 
