@@ -1,14 +1,49 @@
 {
     "Camera": {
         "position": [
-            -3.2913405895233154,
-            3.1777658462524414,
-            -1.5797163248062134
+            -10.910991668701172,
+            11.897931098937988,
+            -14.000153541564941
         ]
     },
     "GameObjects": [
         {
             "Children": [
+                {
+                    "Children": null,
+                    "Components": [
+                        {
+                            "active": true,
+                            "aspect_ratio": 1.0,
+                            "checkbox_main_camera": true,
+                            "far_plane": 200.0,
+                            "is_main_camera": true,
+                            "near_plane": 1.0,
+                            "type": 4,
+                            "vertical_fov": 70.0
+                        }
+                    ],
+                    "UID": 1892045502322139648,
+                    "active": true,
+                    "name": "Camera",
+                    "position": [
+                        -0.08378493785858154,
+                        2.3805289268493652,
+                        -7.313058853149414
+                    ],
+                    "rotation": [
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "static": false
+                },
                 {
                     "Children": [
                         {
@@ -39,7 +74,7 @@
                             ],
                             "UID": 10770637174923139072,
                             "active": true,
-                            "name": "Cube",
+                            "name": "Camera",
                             "position": [
                                 0.0,
                                 0.0,
