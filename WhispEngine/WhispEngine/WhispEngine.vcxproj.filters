@@ -345,6 +345,9 @@
     <ClCompile Include="Imgui\ImGuizmo.cpp" />
     <ClCompile Include="PanelGame.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Shader.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Imgui\imgui.h">
@@ -752,6 +755,9 @@
     <ClInclude Include="Imgui\ImGuizmo.h" />
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Shader.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Math\Matrix.inl">

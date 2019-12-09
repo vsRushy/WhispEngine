@@ -16,6 +16,7 @@
 #include <stdio.h>
 
 typedef unsigned long long uint64;
+typedef unsigned int uint;
 
 #define RELEASE( x )\
     {\
