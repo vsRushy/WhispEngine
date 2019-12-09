@@ -1,9 +1,37 @@
-#include <string>
+#include <iostream>
 #include <fstream>
 #include <sstream>
+
 #include "glew-2.1.0/include/GL/glew.h"
 
 #include "Shader.h"
+
+WhispShader::WhispShader(const std::string& path)
+	: file_path(path), renderer_id(NULL)
+{
+	SHADER_PROGRAM_SOURCE source = ParseShader(path);
+	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
+}
+
+WhispShader::~WhispShader()
+{
+	glDeleteProgram(renderer_id);
+}
+
+void WhispShader::Bind() const
+{
+	glUseProgram(renderer_id);
+}
+
+void WhispShader::Unbind() const
+{
+	glUseProgram(NULL);
+}
+
+void WhispShader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
+{
+	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+}
 
 SHADER_PROGRAM_SOURCE WhispShader::ParseShader(const std::string& path)
 {
@@ -11,9 +39,9 @@ SHADER_PROGRAM_SOURCE WhispShader::ParseShader(const std::string& path)
 
 	std::string line;
 	std::stringstream ss[2]; // one for each shader type
-	
+
 	SHADER_TYPE shader_type = SHADER_TYPE::UNKNOWN;
-	
+
 	while (getline(stream, line))
 	{
 		if (line.find("shader") != std::string::npos)
@@ -65,7 +93,7 @@ uint WhispShader::CompileShader(const uint& shader_type, const std::string& shad
 	const char* source = shader_source.c_str();
 	glShaderSource(shader_id, 1, &source, nullptr);
 	glCompileShader(shader_id);
-	
+
 	int result;
 	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &result);
 	if (result == GL_FALSE)
@@ -96,9 +124,20 @@ uint WhispShader::CompileShader(const uint& shader_type, const std::string& shad
 		LOG(message);
 
 		glDeleteShader(shader_id);
-		
+
 		return 0;
 	}
 
 	return shader_id;
+}
+
+int WhispShader::GetUniformLocation(const std::string& name) const
+{
+	int location = glGetUniformLocation(renderer_id, name.c_str());
+	if (location == -1)
+	{
+		LOG("WARNING: Uniform %s doesn't exist...", name.c_str());
+	}
+
+	return location;
 }

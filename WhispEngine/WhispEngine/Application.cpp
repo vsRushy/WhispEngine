@@ -97,14 +97,14 @@ bool Application::Init()
 		ret = (*item)->Start();
 	}
 
-	SHADER_PROGRAM_SOURCE source = WhispShader::ParseShader("Assets/Shaders/shader_test.shader");
+	/*SHADER_PROGRAM_SOURCE source = WhispShader::ParseShader("Assets/Shaders/shader_test.shader");
 	LOG("VERTEX SHADER");
 	LOG(source.vertex_source.c_str());
 	LOG("FRAGMENT SHADER");
 	LOG(source.fragment_source.c_str());
 
 	unsigned int test_shader = WhispShader::CreateShader(source.vertex_source, source.fragment_source);
-	//glUseProgram(test_shader);
+	glUseProgram(test_shader);*/
 
 	return ret;
 }

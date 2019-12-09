@@ -1,7 +1,7 @@
 #ifndef __SHADER_H__
 #define __SHADER_H__
 
-#include <iostream>
+#include <string>
 
 #include "Globals.h"
 
@@ -21,9 +21,24 @@ enum class SHADER_TYPE
 class WhispShader
 {
 public:
-	static SHADER_PROGRAM_SOURCE ParseShader(const std::string& path);
-	static uint CreateShader(const std::string& vertex_shader, const std::string& fragment_shader);
-	static uint CompileShader(const uint& shader_type, const std::string& shader_source);
+	WhispShader(const std::string& path);
+	~WhispShader();
+
+	void Bind() const;
+	void Unbind() const;
+
+	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
+
+private:
+	SHADER_PROGRAM_SOURCE ParseShader(const std::string& path);
+	uint CreateShader(const std::string& vertex_shader, const std::string& fragment_shader);
+	uint CompileShader(const uint& shader_type, const std::string& shader_source);
+
+	int GetUniformLocation(const std::string& name) const;
+
+private:
+	std::string file_path;
+	uint renderer_id;
 };
 
 #endif /* __SHADER_H__ */
