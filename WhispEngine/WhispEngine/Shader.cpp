@@ -1,6 +1,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "glew-2.1.0/include/GL/glew.h"
 
 #include "Shader.h"
 
@@ -33,4 +34,37 @@ SHADER_PROGRAM_SOURCE WhispShader::ParseShader(const std::string& path)
 	}
 
 	return { ss[0].str(), ss[1].str() };
+}
+
+uint WhispShader::CreateShader(const std::string& vertex_shader, const std::string& fragment_shader)
+{
+	uint program = glCreateProgram();
+
+	uint vertex_s = CompileShader(GL_VERTEX_SHADER, vertex_shader);
+	uint fragment_s = CompileShader(GL_FRAGMENT_SHADER, vertex_shader);
+
+	glAttachShader(program, vertex_s);
+	glAttachShader(program, fragment_s);
+
+	glLinkProgram(program);
+	glValidateProgram(program);
+
+	glDetachShader(vertex_s);
+	glDetachShader(fragment_s);
+
+	glDeleteShader(vertex_s);
+	glDeleteShader(fragment_s);
+
+	return program;
+}
+
+uint WhispShader::CompileShader(const uint& shader_type, const std::string& shader_source)
+{
+	uint shader_id = glCreateShader(shader_type);
+
+	const char* source = shader_source.c_str();
+	glShaderSource(shader_id, 1, &source, nullptr);
+	glCompileShader(shader_id);
+
+	return shader_id;
 }

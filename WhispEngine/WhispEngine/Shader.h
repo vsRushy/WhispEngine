@@ -22,6 +22,8 @@ class WhispShader
 {
 public:
 	static SHADER_PROGRAM_SOURCE ParseShader(const std::string& path);
+	static uint CreateShader(const std::string& vertex_shader, const std::string& fragment_shader);
+	static uint CompileShader(const uint& shader_type, const std::string& shader_source);
 };
 
 #endif /* __SHADER_H__ */
