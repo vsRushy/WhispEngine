@@ -40,11 +40,7 @@ bool ModuleSceneIntro::Start()
 
 	GenerateGrid(10);
 
-	GameObject* obj = App->object_manager->CreateGameObject(nullptr);
-	obj->SetName("Main Camera");
-	obj->CreateComponent(ComponentType::CAMERA);	
-
-	scene_path.assign("Assets/Scenes/SampleScene.scene");
+	LoadScene("Assets/Scenes/SampleScene.scene");
 
 	return ret;
 }
@@ -52,7 +48,7 @@ bool ModuleSceneIntro::Start()
 update_status ModuleSceneIntro::PreUpdate()
 {
 
-	if (App->renderer3D->is_rendering_scenene)
+	if (App->renderer3D->is_rendering_scene)
 	{
 		//Start Buffer Frame ----------------------------------
 		glBindFramebuffer(GL_FRAMEBUFFER, App->renderer3D->scene_viewport->frame_buffer);
@@ -82,6 +78,16 @@ update_status ModuleSceneIntro::Update()
 	if (show_octree) {
 		glDisable(GL_LIGHTING);
 		octree->Render();
+		glEnable(GL_LIGHTING);
+	}
+
+	if (show_mouse_raycast) {
+		glDisable(GL_LIGHTING);
+		glColor3f(0.f, 1.f, 0.f);
+		glBegin(GL_LINES);
+		glVertex3f(mouse_pick_0.x, mouse_pick_0.y, mouse_pick_0.z);
+		glVertex3f(mouse_pick_1.x, mouse_pick_1.y, mouse_pick_1.z);
+		glEnd();
 		glEnable(GL_LIGHTING);
 	}
 
@@ -142,13 +148,13 @@ void ModuleSceneIntro::GenerateGrid(const int & width)
 	delete[] grid;
 }
 
-bool ModuleSceneIntro::SaveScene()
+bool ModuleSceneIntro::SaveCurrentScene()
 {
 	bool ret = true;
 
 	nlohmann::json scene;
 
-	std::string name = App->dummy_file_system->GetFileNameFromPath(scene_path.c_str());
+	std::string name = App->file_system->GetFileNameFromPath(scene_path.c_str());
 	
 	Camera* cam = App->camera->GetSceneCamera();
 	App->json->AddFloat3("position", cam->GetPosition(), scene["Camera"]);
@@ -156,24 +162,62 @@ bool ModuleSceneIntro::SaveScene()
 
 	ret = App->object_manager->SaveGameObjects(scene);
 
-	if (App->dummy_file_system->GetFormat(scene_path.c_str()) != FileSystem::Format::SCENE)
+	if (App->file_system->GetFormat(scene_path.c_str()) != FileSystem::Format::SCENE)
 		scene_path.append(".scene");
 
-	App->dummy_file_system->SaveFile(scene_path.c_str(), scene);
+	App->file_system->SaveFile(scene_path.c_str(), scene);
 
 	return ret;
 }
 
-bool ModuleSceneIntro::LoadScene(const char* scene) const
+bool ModuleSceneIntro::SaveTemporaryScene() const
 {
 	bool ret = true;
 
-	nlohmann::json scene_file = App->dummy_file_system->OpenFile(scene);
+	nlohmann::json scene;
+
+	Camera* cam = App->camera->GetSceneCamera();
+	App->json->AddFloat3("position", cam->GetPosition(), scene["Camera"]);
+	//App->json->AddQuaternion("rotation", cam->GetRotation(), scene["Camera"]); TODO: Create a function to get the quaternion that represent frustum rotation
+
+	ret = App->object_manager->SaveGameObjects(scene);
+
+	App->file_system->SaveFile("Assets/Scenes/temporaryScene.scene", scene);
+
+	int attr = GetFileAttributes("Assets/Scenes/temporaryScene.scene");
+	if ((attr & FILE_ATTRIBUTE_HIDDEN) == 0) {
+		SetFileAttributes("Assets/Scenes/temporaryScene.scene", attr | FILE_ATTRIBUTE_HIDDEN);
+	}
+
+	return ret;
+}
+
+bool ModuleSceneIntro::LoadTemporaryScene()
+{
+	bool ret = true;
+
+	nlohmann::json scene_file = App->file_system->OpenFile("Assets/Scenes/temporaryScene.scene");
+
+	ret = App->object_manager->LoadGameObjects(scene_file["GameObjects"]);
+
+	App->file_system->RemoveFile("Assets/Scenes/temporaryScene.scene");
+
+	return ret;
+}
+
+bool ModuleSceneIntro::LoadScene(const char* scene)
+{
+	bool ret = true;
+
+	nlohmann::json scene_file = App->file_system->OpenFile(scene);
 	
 	Camera* cam = App->camera->GetSceneCamera();
 	cam->SetTransformPosition(App->json->GetFloat3("position", scene_file["Camera"]));
+	scene_path.assign(scene);
 
 	ret = App->object_manager->LoadGameObjects(scene_file["GameObjects"]);
+
+	octree->Recalculate();
 
 	return ret;
 }
@@ -183,16 +227,14 @@ bool ModuleSceneIntro::CreateEmptyScene(const char * path)
 	App->object_manager->ResetObjects();
 	scene_path.assign(path);
 
-	return SaveScene();
+	return SaveCurrentScene();
 }
 
 void ModuleSceneIntro::DebugOctree()
 {
-	if (App->dummy_file_system->Exists("Assets/Scenes/Octree.scene")) {
+	if (App->file_system->Exists("Assets/Scenes/Octree.scene")) {
 		LoadScene("Assets/Scenes/Octree.scene");
-		scene_path.assign("Assets/Scenes/Octree.scene");
 		show_octree = true;
-		octree->Recalculate();
 	}
 	else {
 		LOG("Assets/Scenes/Octree.scene does not exist");
@@ -201,5 +243,5 @@ void ModuleSceneIntro::DebugOctree()
 
 std::string ModuleSceneIntro::GetSceneName() const
 {
-	return App->dummy_file_system->GetFileNameFromPath(scene_path.c_str());
+	return App->file_system->GetFileNameFromPath(scene_path.c_str());
 }

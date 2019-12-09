@@ -35,7 +35,7 @@ bool ModuleCamera3D::Start()
 	sensiblity = 0.25f;  //  TODO: Save and Load this data in JSON
 	movement_speed = 10;  //  TODO: Save and Load this data in JSON
 	wheel_speed = 70;  //  TODO: Save and Load this data in JSON
-	slowness_middle_mouse = 50;  //  TODO: Save and Load this data in JSON
+	slowness_middle_mouse = 5;  //  TODO: Save and Load this data in JSON
 	slowness_zoom_in_out = 50;  //  TODO: Save and Load this data in JSON
 
 	return ret;
@@ -114,8 +114,15 @@ update_status ModuleCamera3D::Update()
 				if (App->object_manager->GetSelected() != nullptr)
 				{
 					GameObject* obj_selected = App->object_manager->GetSelected();
-					math::float3 obj_position = ((ComponentTransform*)obj_selected->GetComponent(ComponentType::TRANSFORM))->GetPosition();
-					//math::float3 center = obj_selected->GetAABB().CenterPoint(); TODO: Fix This, center return always 0,0,0
+					math::float3 obj_position = float3::zero;
+					
+					ComponentMesh* mesh = nullptr;
+					if (obj_selected->TryGetComponent(ComponentType::MESH, (Component*&)mesh)) {
+						obj_position = mesh->GetAABB().CenterPoint();
+					}
+					else {
+						obj_position = ((ComponentTransform*)obj_selected->GetComponent(ComponentType::TRANSFORM))->GetPosition();
+					}
 
 					math::float2 orbit_position(-App->input->GetMouseXMotion()*mou_speed, -App->input->GetMouseYMotion()*mou_speed);
 					scene_camera->OrbitObject(obj_position, orbit_position);
@@ -134,10 +141,8 @@ update_status ModuleCamera3D::Update()
 				last_mouse_position = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
 				math::float2 mouse_vec = last_mouse_position - initial_mouse_position;
 
-				if (App->input->GetMouseXMotion() < 0 && App->input->GetMouseXMotion() > -50) scene_camera->Movement(CameraMovementType::LEFT, mouse_vec.x / (float)slowness_middle_mouse);
-				if (App->input->GetMouseXMotion() > 0) scene_camera->Movement(CameraMovementType::RIGHT, mouse_vec.x / (float)slowness_middle_mouse * -1);
-				if (App->input->GetMouseYMotion() < 0 && App->input->GetMouseYMotion() > -50)scene_camera->Movement(CameraMovementType::DOWN, mouse_vec.y / (float)slowness_middle_mouse * -1);
-				if (App->input->GetMouseYMotion() > 0)scene_camera->Movement(CameraMovementType::UP, mouse_vec.y / (float)slowness_middle_mouse);
+				float3 to_move = scene_camera->frustum.WorldRight() * -mouse_vec.x + scene_camera->frustum.up * mouse_vec.y;
+				scene_camera->frustum.Translate(to_move * App->GetDeltaTime());
 				
 				initial_mouse_position = { (float)App->input->GetMouseX(), (float)App->input->GetMouseY() };
 				is_moving_camera = true;
@@ -173,6 +178,30 @@ update_status ModuleCamera3D::Update()
 			scene_camera->FocusObject(App->object_manager->GetSelected()->GetAABB());
 		}
 	}
+
+
+	//Check if exists any camera component
+	std::vector<GameObject*> all_game_objs;
+	App->object_manager->GetChildsFrom(App->object_manager->root, all_game_objs); // TODO: Iterate all gameobjects costs a lot of ms, we have to optimize that :)
+
+	std::vector<GameObject*> obj_with_camera;
+	for (GameObject* i : all_game_objs)
+	{
+		if ((ComponentCamera*)i->GetComponent(ComponentType::CAMERA) != nullptr)
+		{
+			obj_with_camera.push_back(i);
+		}
+	}
+	if (obj_with_camera.size() == 1)
+	{
+		((ComponentCamera*)obj_with_camera[0]->GetComponent(ComponentType::CAMERA))->only_one_camera = true;
+		((ComponentCamera*)obj_with_camera[0]->GetComponent(ComponentType::CAMERA))->checkbox_main_camera = true;
+		((ComponentCamera*)obj_with_camera[0]->GetComponent(ComponentType::CAMERA))->is_main_camera = true;
+	}
+	else if(!obj_with_camera.empty())
+		((ComponentCamera*)obj_with_camera[0]->GetComponent(ComponentType::CAMERA))->only_one_camera = false;
+
+	obj_with_camera.clear();
 
 	return UPDATE_CONTINUE;
 }
@@ -356,9 +385,10 @@ void Camera::OrbitObject(const float3& center, const float2& pos)
 void Camera::CameraViewRotation(const float2& pos)
 {
 	math::Quat quat_rotation_x = math::Quat::RotateY(pos.x);
-	math::Quat quat_rotation_y = math::Quat::RotateAxisAngle(frustum.WorldRight(), pos.y);
+	MulQuat(quat_rotation_x);
 
-	MulQuat(quat_rotation_x); MulQuat(quat_rotation_y);
+	math::Quat quat_rotation_y = math::Quat::RotateAxisAngle(frustum.WorldRight(), pos.y);
+	 MulQuat(quat_rotation_y);
 }
 
 void Camera::MulQuat(math::Quat & quat)
