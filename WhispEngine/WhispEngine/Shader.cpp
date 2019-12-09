@@ -69,7 +69,7 @@ uint WhispShader::CreateShader(const std::string& vertex_shader, const std::stri
 	uint program = glCreateProgram();
 
 	uint vertex_s = CompileShader(GL_VERTEX_SHADER, vertex_shader);
-	uint fragment_s = CompileShader(GL_FRAGMENT_SHADER, vertex_shader);
+	uint fragment_s = CompileShader(GL_FRAGMENT_SHADER, fragment_shader);
 
 	glAttachShader(program, vertex_s);
 	glAttachShader(program, fragment_s);
@@ -117,10 +117,11 @@ uint WhispShader::CompileShader(const uint& shader_type, const std::string& shad
 		}
 		break;
 		default:
+			type_string = "WE_NULL";
 			break;
 		}
 
-		LOG("ERROR: Can't compile %s shader...", type_string);
+		LOG("ERROR: Can't compile %s shader...", type_string.c_str());
 		LOG(message);
 
 		glDeleteShader(shader_id);

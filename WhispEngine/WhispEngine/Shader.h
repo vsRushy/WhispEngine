@@ -36,6 +36,9 @@ private:
 
 	int GetUniformLocation(const std::string& name) const;
 
+	// TODO: Shader uniform cache
+	// TODO: glVertexAttribPointer, etc...
+
 private:
 	std::string file_path;
 	uint renderer_id;

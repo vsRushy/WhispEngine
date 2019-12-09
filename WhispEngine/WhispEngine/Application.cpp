@@ -97,6 +97,10 @@ bool Application::Init()
 		ret = (*item)->Start();
 	}
 
+	WhispShader test_shader("Assets/Shaders/shader_test.shader");
+	/*test_shader.Bind();
+	test_shader.SetUniform4f("u_Color", 0.8f, 0.5f, 0.2f, 1.0f);*/
+
 	/*SHADER_PROGRAM_SOURCE source = WhispShader::ParseShader("Assets/Shaders/shader_test.shader");
 	LOG("VERTEX SHADER");
 	LOG(source.vertex_source.c_str());
