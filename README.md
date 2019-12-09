@@ -1,10 +1,12 @@
 ﻿# 3D Game Engine: WhispEngine
 
 ## Current Version
-v Assignment2.0
+v Assignment3.0
 
 ## Description
-This is a 3D Game Engine made by Students at CITM (UPC) from Spain. 
+This is a 3D Game Engine made by Students at CITM (UPC).
+
+The project is forked originally from https://github.com/Empty-Whisper/WhispEngine.
 
 ### Installing
 Go to our github release page and download the las version .zip : 
@@ -42,7 +44,12 @@ There is a Menu in Main Menu Bar called "Debug Tools" to be able to correct bett
 * Resources:        	  Shift + 8
 * About: 	                  Shift + Control + A
 
+## Authors and Division Of Tasks (after Fork)
+
+### **Gerard Marcos** [vsRushy](https://github.com/vsRushy)
+
 ## Authors and Division Of Tasks
+
 ### **Christian Martínez** [christt105](https://github.com/christt105)
 * Hierarchy GameObjects
 * Components properties on inspector
@@ -120,7 +127,7 @@ Under supervision of lecturers [Ricard Pillosu](https://www.linkedin.com/in/rica
 
 ## License
 
-Copyright (c) 2018 @christt105 (Christian Martínez De la Rosa) and @optus23 (Marc Gálvez Llorens)
+Copyright (c) 2019 @vsRushy (Gerard Marcos), @christt105 (Christian Martínez De la Rosa) and @optus23 (Marc Gálvez Llorens)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
