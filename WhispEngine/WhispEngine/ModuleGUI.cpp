@@ -377,8 +377,7 @@ void ModuleGUI::OpenLoadWindow()
 		SetCurrentDirectoryA(current_dir);
 
 		std::string file = App->file_system->GetFileFromPath(filename);
-		//std::string path = App->file_system->GetRelativePathToAssets(filename);
-		std::string path(filename);
+		std::string path = App->file_system->GetRelativePathToAssets(filename);
 
 		if (App->file_system->GetFormat(file.c_str()) != FileSystem::Format::SCENE) {
 			LOG("File is not a scene file, cannot open");
