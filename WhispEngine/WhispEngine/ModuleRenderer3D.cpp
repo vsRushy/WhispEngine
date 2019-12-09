@@ -89,9 +89,9 @@ bool ModuleRenderer3D::Init(nlohmann::json &node)
 		
 		//Initialize clear color
 		background_color = new float[3];
-		background_color[0] = 0.109f;
-		background_color[1] = 0.109f;
-		background_color[2] = 0.109f;
+		background_color[0] = 0.15f;
+		background_color[1] = 0.15f;
+		background_color[2] = 0.15f;
 		glClearColor(background_color[0], background_color[1], background_color[2], 1.f);
 
 		//Check for error
@@ -166,7 +166,7 @@ update_status ModuleRenderer3D::Update()
 	/*GetSceneViewport()->UpdateBind(App->renderer3D->scene_viewport->render_texture);
 	GetGameViewport()->UpdateBind(App->renderer3D->game_viewport->render_texture);*/
 	
-	//if (!is_rendering_scene)
+	//if (!is_rendering_scenene)
 	//{
 
 	//	// SCENE ============================================================================================ =
@@ -189,7 +189,7 @@ update_status ModuleRenderer3D::Update()
 	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//	glClearColor(background_color[0], background_color[1], background_color[2], 1.f);
 
-	//	is_rendering_scene = true;
+	//	is_rendering_scenene = true;
 	//}
 	//else
 	//{
@@ -213,10 +213,10 @@ update_status ModuleRenderer3D::Update()
 	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	//	glClearColor(background_color[0], background_color[1], background_color[2], 1.f);
 	//	
-	//	is_rendering_scene = false;
+	//	is_rendering_scenene = false;
 	//}
 
-	if (!is_rendering_scene) // TODO: Threads ;)
+	if (!is_rendering_scenene)
 	{
 
 		// SCENE ============================================================================================ =
@@ -239,7 +239,7 @@ update_status ModuleRenderer3D::Update()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glClearColor(background_color[0], background_color[1], background_color[2], 1.f);
 
-		is_rendering_scene = true;
+		is_rendering_scenene = true;
 	}
 	else
 	{
@@ -263,7 +263,7 @@ update_status ModuleRenderer3D::Update()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glClearColor(background_color[0], background_color[1], background_color[2], 1.f);
 
-		is_rendering_scene = false;
+		is_rendering_scenene = false;
 	}
 
 	

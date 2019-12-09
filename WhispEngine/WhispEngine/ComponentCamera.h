@@ -31,6 +31,5 @@ private:
 public:
 	bool	checkbox_main_camera = true;
 	bool	is_main_camera = true;
-	bool	only_one_camera = false;
 };
 

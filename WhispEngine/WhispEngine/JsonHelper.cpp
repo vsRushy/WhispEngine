@@ -42,10 +42,11 @@ void JsonHelper::AddColor4(const char * name, const float * vector, nlohmann::js
 	};
 }
 
-void JsonHelper::GetColor4(const char * name, const nlohmann::json & node, float* fill)
+float * JsonHelper::GetColor4(const char * name, const nlohmann::json & node)
 {
-	float ret[4] = { node[name][0], node[name][1], node[name][2], node[name][3] };
-	memcpy(fill, ret, sizeof(float) * 4);
+	float ret[] = { node[name][0], node[name][1], node[name][2], node[name][3] };
+
+	return ret;
 }
 
 void JsonHelper::AddColor3(const char * name, const float * vector, nlohmann::json & node)

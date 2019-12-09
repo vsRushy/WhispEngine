@@ -13,14 +13,8 @@
 #include "ModuleObjectManager.h"
 #include "ModuleResources.h"
 
-#include "Time.h"
-
-GameTime* Time = nullptr;
-
 Application::Application()
 {
-	Time = new GameTime();
-
 	window =			new ModuleWindow();
 	input =				new ModuleInput();
 	scene_intro =		new ModuleSceneIntro();
@@ -31,7 +25,7 @@ Application::Application()
 	importer =			new ModuleImport();
 	object_manager =	new ModuleObjectManager();
 	resources =			new ModuleResources();
-	//file_system_fs =		new ModuleFileSystem();		------------Unused for now, in opposite we use our own FileSystem--------------------
+	//file_system =		new ModuleFileSystem();		------------Unused for now--------------------
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -42,7 +36,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(resources);
-	//AddModule(file_system_fs);
+	//AddModule(file_system);
 	AddModule(shortcut);
 	AddModule(importer);
 	AddModule(object_manager);
@@ -56,7 +50,7 @@ Application::Application()
 	AddModule(renderer3D);
 
 	hardware = new HardwareInfo();
-	file_system = new FileSystem();
+	dummy_file_system = new FileSystem();
 	random = new Random();
 	json = new JsonHelper();
 }
@@ -70,15 +64,14 @@ Application::~Application()
 
 	list_modules.clear();
 
-	delete Time;
 }
 
 bool Application::Init()
 {
 	bool ret = true;
 
-	nlohmann::json load = file_system->OpenFile("Configuration/configuration.json");
-	if(load == nullptr) load = file_system->OpenFile("Configuration/conf_default.json");
+	nlohmann::json load = dummy_file_system->OpenFile("Configuration/configuration.json");
+	if(load == nullptr) load = dummy_file_system->OpenFile("Configuration/conf_default.json");
 
 	engine_name = load["Configuration"]["App"]["name"].get<std::string>();
 	organization = load["Configuration"]["App"]["organization"].get<std::string>();
@@ -104,46 +97,14 @@ void Application::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-	dt = frame_time.ReadSec();
-	frame_time.Start();
-
-	switch (state)
+	if (pause_game)
 	{
-	case Application::NONE:
-		break;
-	case Application::PLAY:
-		Time->Start();
-		Time->SetDeltaTime(dt);
-		state = GameState::PLAYING;
-		break;
-	case Application::PLAYING:
-		Time->SetDeltaTime(dt);
-		break;
-	case Application::REANUDE:
-		Time->Reanude();
-		Time->SetDeltaTime(dt);
-		state = GameState::PLAYING;
-		break;
-	case Application::PAUSE:
-		Time->SetDeltaTime(0.f);
-		Time->Pause();
-		state = GameState::PAUSED;
-		break;
-	case Application::PAUSED:
-		Time->SetDeltaTime(0.f);
-		break;
-	case Application::STOP:
-		Time->Stop();
-		Time->SetDeltaTime(0.f);
-		state = GameState::NONE;
-		break;
-	case Application::ONE_FRAME:
-		Time->Reanude();
-		Time->SetDeltaTime(dt);
-		state = GameState::PAUSE;
-		break;
-	default:
-		break;
+		dt = 0.0f;
+	}
+	else
+	{
+		dt = frame_time.ReadSec();
+		frame_time.Start();
 	}
 
 	perfect_frame_time.Start();
@@ -225,44 +186,6 @@ const char * Application::GetVersion() const
 	return version.data();
 }
 
-void Application::SetState(const GameState to_state)
-{
-#ifdef _DEBUG //We only want to get that message error while developing
-	std::string log("Cannot send ");
-	bool fail = false;
-	switch (to_state)
-	{
-	case Application::NONE:
-		log.append("NONE");
-		fail = true;
-		break;
-	case Application::PLAYING:
-		log.append("PLAYING");
-		fail = true;
-		break;
-	case Application::PAUSED:
-		log.append("PAUSED");
-		fail = true;
-		break;
-	case Application::MAX:
-		log.append("MAX");
-		fail = true;
-		break;
-	}
-	if (fail) {
-		log.append(" to SetState(), enums availables are PLAY, PAUSE, STOP and ONE_FRAME");
-		return;
-	}
-#endif // DEBUG
-
-	state = to_state;
-}
-
-Application::GameState Application::GetState() const
-{
-	return state;
-}
-
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
@@ -301,7 +224,7 @@ void Application::FinishUpdate()
 
 	if (want_to_save_scene) {
 		want_to_save_scene = false;
-		scene_intro->SaveCurrentScene();
+		scene_intro->SaveScene();
 	}
 
 	if (want_to_load_scene) {
@@ -341,7 +264,7 @@ bool Application::SaveConfNow()
 {
 	bool ret = true;
 
-	nlohmann::json save = file_system->OpenFile("Configuration/configuration.json");
+	nlohmann::json save = dummy_file_system->OpenFile("Configuration/configuration.json");
 	
 	save["Configuration"]["App"]["name"] = engine_name.data();
 	save["Configuration"]["App"]["organization"] = organization.data();
@@ -351,7 +274,7 @@ bool Application::SaveConfNow()
 		(*i)->Save(save["Configuration"][(*i)->name.data()]);
 	}
 
-	file_system->SaveFile("Configuration/configuration.json", save);
+	dummy_file_system->SaveFile("Configuration/configuration.json", save);
 
 	want_to_save = false;
 
@@ -365,9 +288,9 @@ bool Application::LoadConfNow()
 	nlohmann::json load;
 
 	if (want_to_load)
-		load = file_system->OpenFile("Configuration/configuration.json");
+		load = dummy_file_system->OpenFile("Configuration/configuration.json");
 	else if(want_to_load_def)
-		load = file_system->OpenFile("Configuration/conf_default.json");
+		load = dummy_file_system->OpenFile("Configuration/conf_default.json");
 
 	engine_name = load["Configuration"]["App"]["name"].get<std::string>();
 	organization = load["Configuration"]["App"]["organization"].get<std::string>();
@@ -394,8 +317,8 @@ bool Application::CleanUp()
 	delete hardware;
 	hardware = nullptr;
 
-	delete file_system;
-	file_system = nullptr;
+	delete dummy_file_system;
+	dummy_file_system = nullptr;
 
 	delete random;
 	random = nullptr;

@@ -24,10 +24,8 @@ public:
 
 	void GenerateGrid(const int &width);
 
-	bool SaveCurrentScene();
-	bool SaveTemporaryScene() const;
-	bool LoadTemporaryScene();
-	bool LoadScene(const char* scene);
+	bool SaveScene();
+	bool LoadScene(const char* scene) const;
 	bool CreateEmptyScene(const char* name);
 
 	void DebugOctree();
@@ -39,12 +37,8 @@ public:
 	uint grid_vertex_size = 0;
 	bool show_grid = true;
 	bool show_octree = false;
-	bool show_mouse_raycast = false;
 
 	OctreeTree* octree = nullptr;
-
-	float3 mouse_pick_0 = float3::zero;
-	float3 mouse_pick_1 = float3::zero;
 
 	std::string scene_path;
 };

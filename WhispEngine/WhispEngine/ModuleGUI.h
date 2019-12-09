@@ -12,7 +12,6 @@ class PanelCreate;
 class PanelInspector;
 class PanelScene;
 class PanelGame;
-class PanelResources;
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLEW
 
@@ -22,7 +21,6 @@ class PanelResources;
 #define IMGUI_COLOR_YELLOW ImVec4(1.0f,1.0f,0.0f,1.0f)
 #define IMGUI_COLOR_RED ImVec4(1.f,0.f,0.f,1.f)
 #define IMGUI_COLOR_WHITE ImVec4(1.f,1.f,1.f,1.f)
-#define IMGUI_COLOR_ORANGE ImVec4(1.f, 0.5f,0.f,1.f)
 
 class ModuleGUI :public Module {
 public:
@@ -72,7 +70,6 @@ private:
 	PanelHierarchy* hierarchy = nullptr;
 	PanelCreate* create = nullptr;
 	PanelInspector* inspector = nullptr;
-	PanelResources* resources = nullptr;
 
 public:
 	PanelScene* scene = nullptr;

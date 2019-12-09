@@ -19,7 +19,6 @@ enum CameraMovementType
 
 class Camera
 {
-	friend class ModuleCamera3D;
 public: 
 	Camera();
 

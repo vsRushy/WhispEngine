@@ -38,7 +38,6 @@ void ComponentMesh::Update()
 
 	glColor3f(1.f, 1.f, 1.f);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnable(GL_LIGHTING);
 
 	if (App->renderer3D->wireframe) {
 		if (material != nullptr) {
@@ -72,7 +71,6 @@ void ComponentMesh::Update()
 	DrawNormals(mesh);
 	glColor3f(0.f, 0.f, 0.f);
 
-	glDisable(GL_LIGHTING);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glPopMatrix();
 }

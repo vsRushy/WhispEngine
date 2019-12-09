@@ -3,7 +3,7 @@
         "App": {
             "name": "Whisp Engine",
             "organization": "Empty Whisper",
-            "version": "Assignment 2.0"
+            "version": "0.3"
         },
         "Camera3D": null,
         "Importer": null,
@@ -40,10 +40,7 @@
             },
             "game": {
               "start_enabled": true
-            },
-			"resources": {
-			  "start_enabled": true
-			}
+            }
           }
         },
         "Window": {

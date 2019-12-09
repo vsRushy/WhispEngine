@@ -77,7 +77,7 @@ public:
 
 	Viewport* game_viewport;
 	Viewport* scene_viewport;
-	bool is_rendering_scene = false;
+	bool is_rendering_scenene = false;
 	
 
 

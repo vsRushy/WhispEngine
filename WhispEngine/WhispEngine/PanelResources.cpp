@@ -7,8 +7,7 @@
 
 #include "ModuleImport.h"
 
-PanelResources::PanelResources(const bool &start_active, const SDL_Scancode &shortcut1, const SDL_Scancode &shortcut2, const SDL_Scancode &shortcut3)
-	: Panel("Inspector", start_active, shortcut1, shortcut2, shortcut3)
+PanelResources::PanelResources()
 {
 }
 
@@ -38,12 +37,12 @@ void PanelResources::DrawNode(const char * path)
 				if (!entry.path().has_extension())
 					DrawNode(entry.path().u8string().data());
 				else if (ImGui::IsItemClicked()) {
-					FileSystem::Format format = App->file_system->GetFormat(entry.path().extension().u8string().c_str());
+					FileSystem::Format format = App->dummy_file_system->GetFormat(entry.path().extension().u8string().c_str());
 					switch (format)
 					{
 					case FileSystem::Format::FBX:
-						if (App->file_system->Exists((entry.path().u8string() + ".meta").c_str())) {
-							App->resources->Get(App->file_system->GetUIDFromMeta((entry.path().u8string() + ".meta").c_str()))->LoadToMemory();
+						if (App->dummy_file_system->Exists((entry.path().u8string() + ".meta").c_str())) {
+							App->resources->Get(App->dummy_file_system->GetUIDFromMeta((entry.path().u8string() + ".meta").c_str()))->LoadToMemory();
 						}
 						break;
 					case FileSystem::Format::SCENE:

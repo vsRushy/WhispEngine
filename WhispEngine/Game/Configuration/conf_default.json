@@ -3,7 +3,7 @@
         "App": {
             "name": "Whisp Engine",
             "organization": "Empty Whisper",
-            "version": "Assignment 2.0"
+            "version": "0.3"
         },
         "Camera3D": null,
         "Importer": null,
@@ -16,35 +16,32 @@
         "SceneIntro": null,
         "ShortCut": null,
         "UI": {
-          "panels": {
-            "about": {
-              "start_enabled": false
-            },
-            "configuration": {
-              "start_enabled": true
-            },
-            "console": {
-              "start_enabled": true
-            },
-            "create": {
-              "start_enabled": false
-            },
-            "hierarchy": {
-              "start_enabled": true
-            },
-            "inspector": {
-              "start_enabled": true
-            },
-            "scene": {
-              "start_enabled": true
-            },
-            "game": {
-              "start_enabled": true
-            },
-			"resources": {
-			  "start_enabled": true
-			}
-          }
+            "panels": {
+                "about": {
+                    "start_enabled": false
+                },
+                "configuration": {
+                    "start_enabled": true
+                },
+                "console": {
+                    "start_enabled": true
+                },
+                "create": {
+                    "start_enabled": false
+                },
+                "hierarchy": {
+                    "start_enabled": true
+                },
+                "inspector": {
+                    "start_enabled": true
+                },
+                "scene": {
+                    "start_enabled": true
+                }, 
+                "game": {
+                    "start_enabled": true
+                }
+            }
         },
         "Window": {
             "bright": 1.0,
