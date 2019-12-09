@@ -65,6 +65,40 @@ uint WhispShader::CompileShader(const uint& shader_type, const std::string& shad
 	const char* source = shader_source.c_str();
 	glShaderSource(shader_id, 1, &source, nullptr);
 	glCompileShader(shader_id);
+	
+	int result;
+	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &result);
+	if (result == GL_FALSE)
+	{
+		int length;
+		glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &length);
+		char* message = (char*)alloca(length * sizeof(char));
+		glGetShaderInfoLog(shader_id, length, &length, message);
+
+		std::string type_string;
+		switch (shader_type)
+		{
+		case GL_VERTEX_SHADER:
+		{
+			type_string = "vertex";
+		}
+		break;
+		case GL_FRAGMENT_SHADER:
+		{
+			type_string = "fragment";
+		}
+		break;
+		default:
+			break;
+		}
+
+		LOG("ERROR: Can't compile %s shader...", type_string);
+		LOG(message);
+
+		glDeleteShader(shader_id);
+		
+		return 0;
+	}
 
 	return shader_id;
 }
