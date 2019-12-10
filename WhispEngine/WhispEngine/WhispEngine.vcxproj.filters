@@ -346,7 +346,7 @@
     <ClCompile Include="PanelGame.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Shader.cpp">
-      <Filter>Tools</Filter>
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -756,7 +756,7 @@
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Shader.h">
-      <Filter>Tools</Filter>
+      <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
