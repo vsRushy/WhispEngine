@@ -4,41 +4,41 @@
 
 #include "glew-2.1.0/include/GL/glew.h"
 
-#include "Shader.h"
+#include "ShaderResource.h"
 
-WhispShader::WhispShader(const std::string& path)
+ShaderResource::ShaderResource(const std::string& path)
 	: file_path(path), renderer_id(NULL)
 {
 	SHADER_PROGRAM_SOURCE source = ParseShader(path);
 	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
 }
 
-WhispShader::~WhispShader()
+ShaderResource::~ShaderResource()
 {
 	glDeleteProgram(renderer_id);
 }
 
-void WhispShader::Bind() const
+void ShaderResource::Bind() const
 {
 	glUseProgram(renderer_id);
 }
 
-void WhispShader::Unbind() const
+void ShaderResource::Unbind() const
 {
 	glUseProgram(NULL);
 }
 
-void WhispShader::SetUniform1f(const std::string& name, const float& value)
+void ShaderResource::SetUniform1f(const std::string& name, const float& value)
 {
 	glUniform1f(GetUniformLocation(name), value);
 }
 
-void WhispShader::SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3)
+void ShaderResource::SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3)
 {
 	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
 }
 
-SHADER_PROGRAM_SOURCE WhispShader::ParseShader(const std::string& path)
+SHADER_PROGRAM_SOURCE ShaderResource::ParseShader(const std::string& path)
 {
 	std::ifstream stream(path);
 
@@ -69,7 +69,7 @@ SHADER_PROGRAM_SOURCE WhispShader::ParseShader(const std::string& path)
 	return { ss[0].str(), ss[1].str() };
 }
 
-uint WhispShader::CreateShader(const std::string& vertex_shader, const std::string& fragment_shader)
+uint ShaderResource::CreateShader(const std::string& vertex_shader, const std::string& fragment_shader)
 {
 	uint program = glCreateProgram();
 
@@ -91,7 +91,7 @@ uint WhispShader::CreateShader(const std::string& vertex_shader, const std::stri
 	return program;
 }
 
-uint WhispShader::CompileShader(const uint& shader_type, const std::string& shader_source)
+uint ShaderResource::CompileShader(const uint& shader_type, const std::string& shader_source)
 {
 	uint shader_id = glCreateShader(shader_type);
 
@@ -137,7 +137,7 @@ uint WhispShader::CompileShader(const uint& shader_type, const std::string& shad
 	return shader_id;
 }
 
-int WhispShader::GetUniformLocation(const std::string& name) const
+int ShaderResource::GetUniformLocation(const std::string& name) const
 {
 	int location = glGetUniformLocation(renderer_id, name.c_str());
 	if (location == -1)

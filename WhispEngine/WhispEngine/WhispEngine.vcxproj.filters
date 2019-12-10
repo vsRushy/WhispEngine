@@ -345,7 +345,7 @@
     <ClCompile Include="Imgui\ImGuizmo.cpp" />
     <ClCompile Include="PanelGame.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="ShaderResource.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -755,7 +755,7 @@
     <ClInclude Include="Imgui\ImGuizmo.h" />
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="Time.h" />
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="ShaderResource.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>

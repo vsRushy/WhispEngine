@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "Resource.h"
 #include "Globals.h"
 
 struct SHADER_PROGRAM_SOURCE
@@ -18,11 +19,11 @@ enum class SHADER_TYPE
 	FRAGMENT
 };
 
-class WhispShader
+class ShaderResource
 {
 public:
-	WhispShader(const std::string& path);
-	~WhispShader();
+	ShaderResource(const std::string& path);
+	~ShaderResource();
 
 	void Bind() const;
 	void Unbind() const;

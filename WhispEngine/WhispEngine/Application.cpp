@@ -15,7 +15,7 @@
 
 #include "Time.h"
 
-#include "Shader.h"
+#include "ShaderResource.h"
 
 GameTime* Time = nullptr;
 
@@ -97,7 +97,7 @@ bool Application::Init()
 		ret = (*item)->Start();
 	}
 
-	WhispShader test_shader("Assets/Shaders/shader_test.shader");
+	ShaderResource test_shader("Assets/Shaders/shader_test.shader");
 	/*test_shader.Bind();
 	test_shader.SetUniform4f("u_Color", 0.8f, 0.5f, 0.2f, 1.0f);*/
 

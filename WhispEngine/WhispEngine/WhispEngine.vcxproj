@@ -109,7 +109,7 @@
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="ResourceModel.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderResource.cpp" />
     <ClCompile Include="ShortCut.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -249,7 +249,7 @@
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceModel.h" />
     <ClInclude Include="ResourceTexture.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="ShortCut.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />
