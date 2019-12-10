@@ -97,7 +97,6 @@ void ComponentMesh::Draw(const ResourceMesh* mesh)
 	if (mesh->tex_coords.data != nullptr) {
 		if (material->IsActive()) {
 			if (material->HasTexture()) {
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 				glBindTexture(GL_TEXTURE_2D, material->GetIDTexture());
 			}
 			else {
@@ -109,35 +108,28 @@ void ComponentMesh::Draw(const ResourceMesh* mesh)
 	if (mesh->vertex.data != nullptr) {
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->vertex.id);
-		glVertexAttribPointer(
-			0,
-			3,
-			GL_FLOAT,
-			GL_FALSE,
-			3 * sizeof(float),
-			(GLvoid*)0
-		);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)0);
 
 		if (mesh->tex_coords.data != nullptr) {
+			glEnableVertexAttribArray(1);
 			glBindBuffer(GL_ARRAY_BUFFER, mesh->tex_coords.id);
-			glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(3 * sizeof(float)));
 		}
 		if (mesh->vertex_normals.data != nullptr) {
-			glEnableClientState(GL_NORMAL_ARRAY);
+			glEnableVertexAttribArray(2);
 			glBindBuffer(GL_ARRAY_BUFFER, mesh->vertex_normals.id);
-			glNormalPointer(GL_FLOAT, 0, NULL);
+			glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(6 * sizeof(float)));
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->index.id);
 		glDrawElements(GL_TRIANGLES, mesh->index.size, GL_UNSIGNED_INT, NULL);
-
-
 	}
 
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
