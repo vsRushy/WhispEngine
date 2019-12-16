@@ -66,6 +66,9 @@ FileSystem::Format FileSystem::GetFormat(const char * file) const
 	else if (buffer.compare("tga") == 0) {
 		return FileSystem::Format::TGA;
 	}
+	else if (buffer.compare("shader") == 0) {
+		return FileSystem::Format::SHADER;
+	}
 	
 	LOG("Cannot identify format, format is: %s", buffer.data());
 
@@ -83,6 +86,9 @@ Resource::Type FileSystem::GetResourceType(const char * file) const
 		break;
 	case FileSystem::Format::FBX:
 		return Resource::Type::MODEL;
+		break;
+	case FileSystem::Format::SHADER:
+		return Resource::Type::SHADER;
 		break;
 	default:
 		LOG("%s has not any extension that correspond to a resource", file);
@@ -335,4 +341,36 @@ char * FileSystem::GetData(const char * path)
 	file.close();
 
 	return data;
+}
+
+char* FileSystem::GetTextFile(const char* path)
+{
+	std::ifstream file(path, std::ios::binary);
+	char* buffer = nullptr;
+	if (file.is_open()) {
+		file.seekg(0, std::ios::end);
+		size_t len = file.tellg();
+		buffer = new char[len + 1];
+		file.seekg(0, std::ios::beg);
+		file.read(buffer, len);
+		buffer[len] = '\0'; // opening file in binary does not put final char and opening in not binary causes some errors in length with tabs
+		file.close();
+	}
+
+	return buffer;
+}
+
+void FileSystem::SaveTextFile(const char* buffer, const char* path)
+{
+	std::ofstream file(path);
+	if (file.is_open()) {
+		file.clear();
+		file << buffer;
+		file.close();
+	}
+}
+
+void FileSystem::Copy(const char* src, const char* dest)
+{
+	std::experimental::filesystem::copy_file(src, dest);
 }
