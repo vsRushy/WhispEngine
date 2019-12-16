@@ -25,7 +25,7 @@ public:
 	ResourceShader(const uint64& uid);
 
 
-	ResourceShader(const std::string& path);
+	//ResourceShader(const std::string& path);
 	~ResourceShader();
 
 	bool LoadInMemory() override;

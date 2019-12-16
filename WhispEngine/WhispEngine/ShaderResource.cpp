@@ -11,12 +11,12 @@ ResourceShader::ResourceShader(const uint64& uid) : Resource(uid, Resource::Type
 
 }
 
-ResourceShader::ResourceShader(const std::string& path)
+/*ResourceShader::ResourceShader(const std::string& path)
 	: file_path(path), renderer_id(NULL)
 {
 	SHADER_PROGRAM_SOURCE source = ParseShader(path);
 	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
-}
+}*/
 
 ResourceShader::~ResourceShader()
 {
