@@ -4,41 +4,60 @@
 
 #include "glew-2.1.0/include/GL/glew.h"
 
-#include "ShaderResource.h"
+#include "ResourceShader.h"
 
-ShaderResource::ShaderResource(const std::string& path)
+ResourceShader::ResourceShader(const uint64& uid) : Resource(uid, Resource::Type::SHADER)
+{
+
+}
+
+ResourceShader::ResourceShader(const std::string& path)
 	: file_path(path), renderer_id(NULL)
 {
 	SHADER_PROGRAM_SOURCE source = ParseShader(path);
 	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
 }
 
-ShaderResource::~ShaderResource()
+ResourceShader::~ResourceShader()
 {
+	if (references > 0u)
+		FreeMemory();
+	references = 0u;
+
 	glDeleteProgram(renderer_id);
 }
 
-void ShaderResource::Bind() const
+bool ResourceShader::LoadInMemory()
+{
+	return true;
+}
+
+bool ResourceShader::FreeMemory()
+{
+	return true;
+}
+
+void ResourceShader::Bind() const
 {
 	glUseProgram(renderer_id);
 }
 
-void ShaderResource::Unbind() const
+void ResourceShader::Unbind() const
 {
 	glUseProgram(NULL);
 }
 
-void ShaderResource::SetUniform1f(const std::string& name, const float& value)
+void ResourceShader::SetUniform1f(const std::string& name, const float& value)
 {
 	glUniform1f(GetUniformLocation(name), value);
 }
 
-void ShaderResource::SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3)
+void ResourceShader::SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3)
 {
 	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
 }
 
-SHADER_PROGRAM_SOURCE ShaderResource::ParseShader(const std::string& path)
+SHADER_PROGRAM_SOURCE ResourceShader::ParseShader(const std::string& path)
 {
 	std::ifstream stream(path);
 
@@ -69,7 +88,7 @@ SHADER_PROGRAM_SOURCE ShaderResource::ParseShader(const std::string& path)
 	return { ss[0].str(), ss[1].str() };
 }
 
-uint ShaderResource::CreateShader(const std::string& vertex_shader, const std::string& fragment_shader)
+uint ResourceShader::CreateShader(const std::string& vertex_shader, const std::string& fragment_shader)
 {
 	uint program = glCreateProgram();
 
@@ -91,7 +110,7 @@ uint ShaderResource::CreateShader(const std::string& vertex_shader, const std::s
 	return program;
 }
 
-uint ShaderResource::CompileShader(const uint& shader_type, const std::string& shader_source)
+uint ResourceShader::CompileShader(const uint& shader_type, const std::string& shader_source)
 {
 	uint shader_id = glCreateShader(shader_type);
 
@@ -137,7 +156,7 @@ uint ShaderResource::CompileShader(const uint& shader_type, const std::string& s
 	return shader_id;
 }
 
-int ShaderResource::GetUniformLocation(const std::string& name) const
+int ResourceShader::GetUniformLocation(const std::string& name) const
 {
 	int location = glGetUniformLocation(renderer_id, name.c_str());
 	if (location == -1)

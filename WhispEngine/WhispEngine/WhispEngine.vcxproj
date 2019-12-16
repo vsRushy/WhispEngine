@@ -249,7 +249,7 @@
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="ResourceModel.h" />
     <ClInclude Include="ResourceTexture.h" />
-    <ClInclude Include="ShaderResource.h" />
+    <ClInclude Include="ResourceShader.h" />
     <ClInclude Include="ShortCut.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Timer.h" />

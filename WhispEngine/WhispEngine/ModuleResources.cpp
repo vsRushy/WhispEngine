@@ -3,6 +3,7 @@
 #include "ResourceModel.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
+#include "ResourceShader.h"
 #include "ModuleImport.h"
 
 ModuleResources::ModuleResources()
@@ -68,6 +69,7 @@ Resource * ModuleResources::CreateResource(Resource::Type type, const uint64 & f
 		case Resource::MODEL:	ret = (Resource*) new ResourceModel(uid);	break;
 		case Resource::MESH:	ret = (Resource*) new ResourceMesh(uid);	break;
 		//case Resource::scene: ret = (Resource*) new ResourceScene(uid); break;
+		case Resource::SHADER:  ret = (Resource*) new ResourceShader(uid);  break;
 
 		default: LOG("Resource with type %i has not setted to be created", (int)type); break;
 	}

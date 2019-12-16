@@ -12,6 +12,7 @@ public:
 		MESH,
 		TEXTURE,
 		SCENE, // ?????????
+		SHADER,
 
 		MAX
 	};

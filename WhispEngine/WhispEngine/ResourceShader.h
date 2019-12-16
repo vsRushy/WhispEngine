@@ -19,11 +19,17 @@ enum class SHADER_TYPE
 	FRAGMENT
 };
 
-class ShaderResource
+class ResourceShader : public Resource
 {
 public:
-	ShaderResource(const std::string& path);
-	~ShaderResource();
+	ResourceShader(const uint64& uid);
+
+
+	ResourceShader(const std::string& path);
+	~ResourceShader();
+
+	bool LoadInMemory() override;
+	bool FreeMemory() override;
 
 	void Bind() const;
 	void Unbind() const;

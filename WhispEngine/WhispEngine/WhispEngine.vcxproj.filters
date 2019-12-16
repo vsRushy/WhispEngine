@@ -755,7 +755,7 @@
     <ClInclude Include="Imgui\ImGuizmo.h" />
     <ClInclude Include="PanelGame.h" />
     <ClInclude Include="Time.h" />
-    <ClInclude Include="ShaderResource.h">
+    <ClInclude Include="ResourceShader.h">
       <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
