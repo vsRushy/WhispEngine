@@ -351,6 +351,9 @@
     <ClCompile Include="ShaderImporter.cpp">
       <Filter>Importer</Filter>
     </ClCompile>
+    <ClCompile Include="TextEditor.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Imgui\imgui.h">
@@ -763,6 +766,9 @@
     </ClInclude>
     <ClInclude Include="ShaderImporter.h">
       <Filter>Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="TextEditor.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
