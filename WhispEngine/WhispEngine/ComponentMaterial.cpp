@@ -114,6 +114,7 @@ void ComponentMaterial::OnInspector()
 			float width = 500.0f;
 			float height = 800.0f;
 			ImGui::SetNextWindowSize(ImVec2(width, height));
+			ImGui::SetNextWindowPosCenter(ImGuiCond_::ImGuiCond_Always);
 			if (ImGui::Begin("Select Shader", &select_shader))
 			{
 				if (ImGui::Button("Close"))
