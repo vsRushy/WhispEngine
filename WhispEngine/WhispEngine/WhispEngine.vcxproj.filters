@@ -348,6 +348,9 @@
     <ClCompile Include="ResourceShader.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderImporter.cpp">
+      <Filter>Importer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Imgui\imgui.h">
@@ -757,6 +760,9 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="ResourceShader.h">
       <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderImporter.h">
+      <Filter>Importer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

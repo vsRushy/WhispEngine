@@ -88,7 +88,7 @@ void ComponentMaterial::OnInspector()
 
 		ImGui::Separator();
 
-		ImGui::Text("Shader:");
+		ImGui::Text("Current shader: "); ImGui::SameLine(); 
 	}
 }
 
