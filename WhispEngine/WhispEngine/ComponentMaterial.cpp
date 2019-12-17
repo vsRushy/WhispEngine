@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "MaterialImporter.h"
 #include "ResourceTexture.h"
+#include "ResourceShader.h"
 #include "ModuleImport.h"
 #include "ModuleInput.h"
 #include "ModuleObjectManager.h"
@@ -18,6 +19,7 @@ ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, Com
 ComponentMaterial::~ComponentMaterial()
 {
 	App->resources->FreeMemory(uid);
+	App->resources->FreeMemory(s_uid);
 }
 
 const bool ComponentMaterial::HasTexture() const
@@ -30,6 +32,19 @@ const uint ComponentMaterial::GetIDTexture() const
 	ResourceTexture *res = (ResourceTexture*)App->resources->Get(uid);
 	if (res != nullptr)
 		return res->buffer_id;
+	return 0u;
+}
+
+const bool ComponentMaterial::HasShader() const
+{
+	return s_uid != 0u;
+}
+
+const uint ComponentMaterial::GetIDShader() const
+{
+	ResourceShader* res = (ResourceShader*)App->resources->Get(uid);
+	if (res != nullptr)
+		return res->renderer_id;
 	return 0u;
 }
 

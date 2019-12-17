@@ -21,9 +21,10 @@ enum class SHADER_TYPE
 
 class ResourceShader : public Resource
 {
+	friend class ComponentMaterial;
+
 public:
 	ResourceShader(const uint64& uid);
-
 
 	//ResourceShader(const std::string& path);
 	~ResourceShader();
@@ -47,7 +48,7 @@ private:
 	// TODO: Shader uniform cache
 	// TODO: glVertexAttribPointer, etc...
 
-private:
+protected:
 	uint renderer_id;
 };
 

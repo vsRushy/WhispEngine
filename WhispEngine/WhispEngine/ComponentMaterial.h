@@ -14,6 +14,9 @@ public:
 	const bool		HasTexture() const;
 	const uint		GetIDTexture() const;
 
+	const bool		HasShader() const;
+	const uint		GetIDShader() const;
+
 	void OnInspector();
 
 	void Save(nlohmann::json &node) override;
@@ -31,8 +34,11 @@ private:
 	float wire_color[4]{ 0.f, 0.f, 0.f, 0.f };
 
 	bool select_tex = false;
+	bool select_shader = false;
 
 public:
 	uint64 uid = 0u;
+
+	uint64 s_uid = 0u;
 };
 
