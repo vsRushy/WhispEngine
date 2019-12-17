@@ -2,6 +2,8 @@
 #include "Component.h"
 #include <string>
 
+#include "TextEditor.h"
+
 class ComponentMaterial :
 	public Component
 {
@@ -16,6 +18,8 @@ public:
 
 	const bool		HasShader() const;
 	const uint		GetIDShader() const;
+
+	void ShowShaderTextEditor();
 
 	void OnInspector();
 
@@ -35,10 +39,15 @@ private:
 
 	bool select_tex = false;
 	bool select_shader = false;
+	bool show_shader_text_editor = false;
 
 public:
 	uint64 uid = 0u;
 
 	uint64 s_uid = 0u;
+
+private:
+	TextEditor text_editor;
+	TextEditor::LanguageDefinition lang = TextEditor::LanguageDefinition::GLSL();
 };
 

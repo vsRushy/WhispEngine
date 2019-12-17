@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "ComponentMaterial.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
@@ -10,9 +12,11 @@
 #include "ModuleObjectManager.h"
 #include "ModuleResources.h"
 #include "Resource.h"
+#include "TextEditor.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, ComponentType::MATERIAL)
 {
+	text_editor.SetLanguageDefinition(lang);
 }
 
 
@@ -46,6 +50,92 @@ const uint ComponentMaterial::GetIDShader() const
 	if (res != nullptr)
 		return res->renderer_id;
 	return 0u;
+}
+
+void ComponentMaterial::ShowShaderTextEditor()
+{
+	// Just testing
+	static const char* fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
+
+	{
+		std::ifstream t(fileToEdit);
+		if (t.good())
+		{
+			std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+			text_editor.SetText(str);
+		}
+	}
+
+	auto cpos = text_editor.GetCursorPosition();
+	ImGui::SetNextWindowPosCenter(ImGuiCond_Always);
+	ImGui::Begin("Text Editor", &show_shader_text_editor, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
+	ImGui::SetWindowSize(ImVec2(800, 600), ImGuiCond_Always);
+
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Save"))
+			{
+				auto textToSave = text_editor.GetText();
+				/// save text....
+			}
+
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Edit"))
+		{
+			bool ro = text_editor.IsReadOnly();
+			if (ImGui::MenuItem("Read-only mode", nullptr, &ro))
+				text_editor.SetReadOnly(ro);
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Undo", "ALT-Backspace", nullptr, !ro && text_editor.CanUndo()))
+				text_editor.Undo();
+			if (ImGui::MenuItem("Redo", "Ctrl-Y", nullptr, !ro && text_editor.CanRedo()))
+				text_editor.Redo();
+
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Copy", "Ctrl-C", nullptr, text_editor.HasSelection()))
+				text_editor.Copy();
+			if (ImGui::MenuItem("Cut", "Ctrl-X", nullptr, !ro && text_editor.HasSelection()))
+				text_editor.Cut();
+			if (ImGui::MenuItem("Delete", "Del", nullptr, !ro && text_editor.HasSelection()))
+				text_editor.Delete();
+			if (ImGui::MenuItem("Paste", "Ctrl-V", nullptr, !ro && ImGui::GetClipboardText() != nullptr))
+				text_editor.Paste();
+
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Select all", nullptr, nullptr))
+				text_editor.SetSelection(TextEditor::Coordinates(), TextEditor::Coordinates(text_editor.GetTotalLines(), 0));
+
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("View"))
+		{
+			if (ImGui::MenuItem("Dark palette"))
+				text_editor.SetPalette(TextEditor::GetDarkPalette());
+			if (ImGui::MenuItem("Light palette"))
+				text_editor.SetPalette(TextEditor::GetLightPalette());
+			if (ImGui::MenuItem("Retro blue palette"))
+				text_editor.SetPalette(TextEditor::GetRetroBluePalette());
+			ImGui::EndMenu();
+		}
+
+		ImGui::EndMenuBar();
+	}
+
+	ImGui::Text("%6d/%-6d %6d lines  | %s | %s | %s | %s", cpos.mLine + 1, cpos.mColumn + 1, text_editor.GetTotalLines(),
+		text_editor.IsOverwrite() ? "Ovr" : "Ins",
+		text_editor.CanUndo() ? "*" : " ",
+		text_editor.GetLanguageDefinition().mName.c_str(), fileToEdit);
+
+	text_editor.Render("TextEditor");
+
+	ImGui::End();
 }
 
 void ComponentMaterial::OnInspector()
@@ -109,6 +199,12 @@ void ComponentMaterial::OnInspector()
 			select_shader = true;
 		}
 
+		ImGui::SameLine();
+		if (ImGui::Button("Edit shader"))
+		{
+			show_shader_text_editor = true;
+		}
+
 		if (select_shader)
 		{
 			float width = 500.0f;
@@ -137,6 +233,11 @@ void ComponentMaterial::OnInspector()
 
 				ImGui::End();
 			}
+		}
+
+		if (show_shader_text_editor)
+		{
+			ShowShaderTextEditor();
 		}
 	}
 }
