@@ -176,7 +176,7 @@ std::string FileSystem::GetRelativePathToAssets(const char * full_path) const
 bool FileSystem::IsFileSupported(const char * path) const
 {
 	FileSystem::Format form = GetFormat(path);
-	return form == FileSystem::Format::DDS || form == FileSystem::Format::FBX || form == FileSystem::Format::JPG || form == FileSystem::Format::PNG || form == FileSystem::Format::TGA;
+	return form == FileSystem::Format::DDS || form == FileSystem::Format::FBX || form == FileSystem::Format::JPG || form == FileSystem::Format::PNG || form == FileSystem::Format::TGA || form == FileSystem::Format::SHADER;
 }
 
 bool FileSystem::CreateDir(const char * path)
