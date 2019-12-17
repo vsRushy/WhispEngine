@@ -39,12 +39,13 @@ private:
 
 	bool select_tex = false;
 	bool select_shader = false;
-	bool show_shader_text_editor = false;
 
 public:
 	uint64 uid = 0u;
 
 	uint64 s_uid = 0u;
+
+	bool show_shader_text_editor = false;
 
 private:
 	TextEditor text_editor;

@@ -67,9 +67,9 @@ void ComponentMaterial::ShowShaderTextEditor()
 	}
 
 	auto cpos = text_editor.GetCursorPosition();
-	ImGui::SetNextWindowPosCenter(ImGuiCond_Always);
+	ImGui::SetNextWindowPosCenter(ImGuiCond_FirstUseEver);
 	ImGui::Begin("Text Editor", &show_shader_text_editor, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
-	ImGui::SetWindowSize(ImVec2(800, 600), ImGuiCond_Always);
+	ImGui::SetWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
 
 	if (ImGui::BeginMenuBar())
 	{

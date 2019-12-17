@@ -219,9 +219,26 @@ void ModuleObjectManager::MousePicking()
 
 			for (std::vector<GameObject*>::iterator iterator = selected_and_childs.begin(); iterator != selected_and_childs.end();)
 			{
-				(*iterator)->Deselect();
-				iterator = selected_and_childs.erase(iterator);
-				SetSelected(nullptr);
+				if ((*iterator)->HasComponent(ComponentType::MATERIAL))
+				{
+					ComponentMaterial* mat_c = dynamic_cast<ComponentMaterial*>((*iterator)->GetComponent(ComponentType::MATERIAL));
+					if (mat_c->show_shader_text_editor)
+					{
+						break;
+					}
+					else
+					{
+						(*iterator)->Deselect();
+						iterator = selected_and_childs.erase(iterator);
+						SetSelected(nullptr);
+					}
+				}
+				else
+				{
+					(*iterator)->Deselect();
+					iterator = selected_and_childs.erase(iterator);
+					SetSelected(nullptr);
+				}
 			}
 		}
 		if (hitted != nullptr && !ImGuizmo::IsOver())
