@@ -111,9 +111,16 @@ void ComponentMaterial::OnInspector()
 
 		if (select_shader)
 		{
-			float width = 20.0f;
-			float height = 20.0f;
-			if (ImGui::Begin("Select Shader", &select_shader)) {
+			float width = 500.0f;
+			float height = 800.0f;
+			ImGui::SetNextWindowSize(ImVec2(width, height));
+			if (ImGui::Begin("Select Shader", &select_shader))
+			{
+				if (ImGui::Button("Close"))
+				{
+					select_shader = false;
+				}
+
 				std::vector<ResourceShader*> shaders;
 				App->resources->GetShaders(shaders);
 				for (auto i = shaders.begin(); i != shaders.end(); ++i) {
