@@ -4,6 +4,7 @@
 #include "Globals.h"
 
 class ResourceTexture;
+class ResourceShader;
 
 class ModuleResources :
 	public Module
@@ -25,6 +26,7 @@ public:
 		  Resource* Get(const uint64& uid);
 
 	bool GetTextures(std::vector<ResourceTexture*>& to_fill);
+	bool GetShaders(std::vector<ResourceShader*>& to_fill);
 
 private:
 	std::map<uint64_t, Resource*> resources;

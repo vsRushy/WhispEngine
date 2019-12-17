@@ -104,6 +104,29 @@ void ComponentMaterial::OnInspector()
 		ImGui::Separator();
 
 		ImGui::Text("Current shader: "); ImGui::SameLine(); 
+		if (ImGui::Button("Select Shader"))
+		{
+			select_shader = true;
+		}
+
+		if (select_shader)
+		{
+			float width = 20.0f;
+			float height = 20.0f;
+			if (ImGui::Begin("Select Shader", &select_shader)) {
+				std::vector<ResourceShader*> shaders;
+				App->resources->GetShaders(shaders);
+				for (auto i = shaders.begin(); i != shaders.end(); ++i) {
+					/*if ((*i)->IsLoadedInMemory()) {
+						ImGui::ImageButton((ImTextureID)(*i)->renderer_id, ImVec2(width, height));
+						ImGui::SameLine();
+					}*/
+					ImGui::Text((*i)->GetFile());
+				}
+
+				ImGui::End();
+			}
+		}
 	}
 }
 

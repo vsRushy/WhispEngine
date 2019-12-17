@@ -121,3 +121,12 @@ bool ModuleResources::GetTextures(std::vector<ResourceTexture*>& to_fill)
 	}
 	return !to_fill.empty();
 }
+
+bool ModuleResources::GetShaders(std::vector<ResourceShader*>& to_fill)
+{
+	for (auto res = resources.begin(); res != resources.end(); res++) {
+		if ((*res).second->GetType() == Resource::Type::SHADER)
+			to_fill.push_back((ResourceShader*)(*res).second);
+	}
+	return !to_fill.empty();
+}
