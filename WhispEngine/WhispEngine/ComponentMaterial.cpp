@@ -83,7 +83,12 @@ void ComponentMaterial::OnInspector()
 
 				ImGui::End();
 			}
+
 		}
+
+		ImGui::Separator();
+
+		ImGui::Text("Shader:");
 	}
 }
 
