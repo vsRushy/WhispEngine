@@ -128,7 +128,10 @@ void ComponentMaterial::OnInspector()
 						ImGui::ImageButton((ImTextureID)(*i)->renderer_id, ImVec2(width, height));
 						ImGui::SameLine();
 					}*/
-					ImGui::Text((*i)->GetFile());
+					if (ImGui::Button((*i)->GetFile()))
+					{
+
+					}
 				}
 
 				ImGui::End();
