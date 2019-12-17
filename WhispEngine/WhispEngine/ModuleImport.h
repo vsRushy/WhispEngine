@@ -8,12 +8,14 @@ struct Texture;
 class ModelImporter;
 class MaterialImporter;
 class MeshImporter;
+class ShaderImporter;
 
 class ModuleImport :
 	public Module
 {
 	friend class ModelImporter;
 	friend class MeshImporter;
+	friend class ShaderImporter;
 
 public:
 	ModuleImport();
@@ -38,5 +40,6 @@ public:
 	ModelImporter*		model = nullptr;
 	MaterialImporter*	material = nullptr;
 	MeshImporter*		mesh = nullptr;
+	ShaderImporter*		shader = nullptr;
 };
 

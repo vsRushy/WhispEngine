@@ -16,6 +16,7 @@
 #include "ModelImporter.h"
 #include "MaterialImporter.h"
 #include "MeshImporter.h"
+#include "ShaderImporter.h"
 
 #include "ModuleResources.h"
 
@@ -44,6 +45,7 @@ bool ModuleImport::Start()
 	model		= new ModelImporter();
 	material	= new MaterialImporter();
 	mesh		= new MeshImporter();
+	shader		= new ShaderImporter();
 
 	CreateLibrary();
 
@@ -62,6 +64,7 @@ bool ModuleImport::CleanUp()
 	delete model;
 	delete material;
 	delete mesh;
+	delete shader;
 
 	return true;
 }
@@ -88,6 +91,9 @@ bool ModuleImport::Import(const char * path, uint64 &uid)
 	case FileSystem::Format::MODEL:
 		//uid = model->Load(path);
 		break;
+	case FileSystem::Format::SHADER:
+		uid = shader->Import(path);
+
 	/*case FileSystem::Format::META: {
 		char* f_uid = App->file_system->GetData(path);
 		if (f_uid == nullptr) {

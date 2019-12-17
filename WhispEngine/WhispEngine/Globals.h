@@ -64,6 +64,7 @@ void log(const char file[], int line, const char* format, ...);
 #define MODEL_L_FOLDER "Library/Models/"
 #define MESH_L_FOLDER "Library/Meshes/"
 #define MATERIAL_L_FOLDER "Library/Material/"
+#define SHADER_L_FOLDER "Library/Shaders/"
 
 typedef unsigned int uint;
 

@@ -48,7 +48,6 @@ private:
 	// TODO: glVertexAttribPointer, etc...
 
 private:
-	std::string file_path;
 	uint renderer_id;
 };
 
