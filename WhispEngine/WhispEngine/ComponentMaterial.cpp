@@ -17,6 +17,9 @@
 ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, ComponentType::MATERIAL)
 {
 	text_editor.SetLanguageDefinition(lang);
+
+	// Just testing
+	fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
 }
 
 
@@ -54,18 +57,6 @@ const uint ComponentMaterial::GetIDShader() const
 
 void ComponentMaterial::ShowShaderTextEditor()
 {
-	// Just testing
-	static const char* fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
-
-	{
-		std::ifstream t(fileToEdit);
-		if (t.good())
-		{
-			std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
-			text_editor.SetText(str);
-		}
-	}
-
 	auto cpos = text_editor.GetCursorPosition();
 	ImGui::SetNextWindowPosCenter(ImGuiCond_FirstUseEver);
 	ImGui::Begin("Text Editor", &show_shader_text_editor, ImGuiWindowFlags_HorizontalScrollbar | ImGuiWindowFlags_MenuBar);
@@ -131,7 +122,7 @@ void ComponentMaterial::ShowShaderTextEditor()
 	ImGui::Text("%6d/%-6d %6d lines  | %s | %s | %s | %s", cpos.mLine + 1, cpos.mColumn + 1, text_editor.GetTotalLines(),
 		text_editor.IsOverwrite() ? "Ovr" : "Ins",
 		text_editor.CanUndo() ? "*" : " ",
-		text_editor.GetLanguageDefinition().mName.c_str(), fileToEdit);
+		text_editor.GetLanguageDefinition().mName.c_str(), fileToEdit.c_str());
 
 	text_editor.Render("TextEditor");
 
@@ -202,6 +193,15 @@ void ComponentMaterial::OnInspector()
 		ImGui::SameLine();
 		if (ImGui::Button("Edit shader"))
 		{
+			{
+				std::ifstream t(fileToEdit.c_str());
+				if (t.good())
+				{
+					std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+					text_editor.SetText(str);
+				}
+			}
+
 			show_shader_text_editor = true;
 		}
 
