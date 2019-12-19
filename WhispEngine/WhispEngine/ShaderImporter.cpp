@@ -66,4 +66,6 @@ uint64 ShaderImporter::Import(const char* path, const uint64& force_uid)
 
 	shad->SetFile(shad_path.c_str());
 	shad->SetResourcePath(std::string(SHADER_L_FOLDER + std::to_string(shad->GetUID()) + ".shader").c_str());
+
+
 }

@@ -19,6 +19,8 @@ ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, Com
 {
 	text_editor.SetLanguageDefinition(lang);
 
+
+
 	// Just testing
 	fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
 }
