@@ -13,6 +13,7 @@
 #include "ModuleResources.h"
 #include "Resource.h"
 #include "TextEditor.h"
+#include "FileSystem.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, ComponentType::MATERIAL)
 {
@@ -70,6 +71,7 @@ void ComponentMaterial::ShowShaderTextEditor()
 			{
 				auto textToSave = text_editor.GetText();
 				/// save text....
+				App->file_system->SaveTextFile(textToSave.c_str(), "Assets/Shaders/shader_test.shader");
 			}
 
 			ImGui::EndMenu();
