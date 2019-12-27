@@ -52,7 +52,7 @@ const bool ComponentMaterial::HasShader() const
 
 const uint ComponentMaterial::GetIDShader() const
 {
-	ResourceShader* res = (ResourceShader*)App->resources->Get(uid);
+	ResourceShader* res = (ResourceShader*)App->resources->Get(s_uid);
 	if (res != nullptr)
 		return res->renderer_id;
 	return 0u;
