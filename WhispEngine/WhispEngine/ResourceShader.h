@@ -25,9 +25,9 @@ class ResourceShader : public Resource
 
 public:
 	ResourceShader(const uint64& uid);
-
-	//ResourceShader(const std::string& path);
 	~ResourceShader();
+
+	void ParseAndCreateShader();
 
 	bool LoadInMemory() override;
 	bool FreeMemory() override;

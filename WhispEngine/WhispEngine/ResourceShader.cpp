@@ -11,13 +11,6 @@ ResourceShader::ResourceShader(const uint64& uid) : Resource(uid, Resource::Type
 
 }
 
-/*ResourceShader::ResourceShader(const std::string& path)
-	: file_path(path), renderer_id(NULL)
-{
-	SHADER_PROGRAM_SOURCE source = ParseShader(path);
-	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
-}*/
-
 ResourceShader::~ResourceShader()
 {
 	if (references > 0u)
@@ -55,6 +48,12 @@ void ResourceShader::SetUniform1f(const std::string& name, const float& value)
 void ResourceShader::SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3)
 {
 	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+}
+
+void ResourceShader::ParseAndCreateShader()
+{
+	SHADER_PROGRAM_SOURCE source = ParseShader(file);
+	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
 }
 
 SHADER_PROGRAM_SOURCE ResourceShader::ParseShader(const std::string& path)

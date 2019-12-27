@@ -47,25 +47,11 @@ uint64 ShaderImporter::Import(const char* path, const uint64& force_uid)
 			}
 		}
 	}
-	else
-	{
-		LOG("File not found in Assets folder, trying to find file in fbx folder...")
-			shad_path.assign(std::string(SHADER_A_FOLDER) + file);
-		if (!CopyFile(path, shad_path.data(), FALSE)) {
-			wchar_t buf[256];
-			FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-				NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-				buf, (sizeof(buf) / sizeof(wchar_t)), NULL);
-			LOG("Failed to copy texture in Assets folder, Error: %s", buf);
-			return 0U;
-		}
-	}
 
 	ResourceShader* shad = (ResourceShader*)App->resources->CreateResource(Resource::Type::SHADER, meta);
 	App->file_system->GenerateMetaFile(shad_path.c_str(), shad->GetUID());
 
 	shad->SetFile(shad_path.c_str());
 	shad->SetResourcePath(std::string(SHADER_L_FOLDER + std::to_string(shad->GetUID()) + ".shader").c_str());
-
-
+	shad->ParseAndCreateShader();
 }
