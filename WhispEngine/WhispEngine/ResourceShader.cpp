@@ -52,7 +52,7 @@ void ResourceShader::SetUniform4f(const std::string& name, const float& v0, cons
 
 void ResourceShader::ParseAndCreateShader()
 {
-	SHADER_PROGRAM_SOURCE source = ParseShader(file);
+	SHADER_PROGRAM_SOURCE source = ParseShader(resource_path);
 	renderer_id = CreateShader(source.vertex_source, source.fragment_source);
 }
 
