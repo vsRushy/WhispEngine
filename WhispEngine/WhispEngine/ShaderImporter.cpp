@@ -54,4 +54,20 @@ uint64 ShaderImporter::Import(const char* path, const uint64& force_uid)
 	shad->SetFile(shad_path.c_str());
 	shad->SetResourcePath(std::string(SHADER_L_FOLDER + std::to_string(shad->GetUID()) + ".shader").c_str());
 	shad->ParseAndCreateShader();
+
+	if (App->file_system->GetFormat(shad_path.c_str()) == FileSystem::Format::SHADER)
+	{
+		if (App->file_system->Exists(SHADER_L_FOLDER) == false)
+			App->file_system->CreateDir(SHADER_L_FOLDER);
+
+		if (CopyFile(shad_path.c_str(), (SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str(), FALSE))
+		{
+			rename((SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str(), shad->GetLibraryPath());
+			return shad->GetUID();
+		}
+		else
+		{
+			LOG("Failed to copy shader in Library folder, Cannot copy %s in %s", shad_path.c_str(), (SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str());
+		}
+	}
 }

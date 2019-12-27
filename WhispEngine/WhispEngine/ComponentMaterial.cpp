@@ -42,6 +42,7 @@ const uint ComponentMaterial::GetIDTexture() const
 	ResourceTexture *res = (ResourceTexture*)App->resources->Get(uid);
 	if (res != nullptr)
 		return res->buffer_id;
+
 	return 0u;
 }
 
@@ -55,6 +56,7 @@ const uint ComponentMaterial::GetIDShader() const
 	ResourceShader* res = (ResourceShader*)App->resources->Get(s_uid);
 	if (res != nullptr)
 		return res->renderer_id;
+
 	return 0u;
 }
 
