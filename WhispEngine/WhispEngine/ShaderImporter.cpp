@@ -60,14 +60,17 @@ uint64 ShaderImporter::Import(const char* path, const uint64& force_uid)
 		if (App->file_system->Exists(SHADER_L_FOLDER) == false)
 			App->file_system->CreateDir(SHADER_L_FOLDER);
 
-		if (CopyFile(shad_path.c_str(), (SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str(), FALSE))
+		if (!App->file_system->Exists(std::string(SHADER_L_FOLDER + App->file_system->GetFileFromPath(shad->GetLibraryPath())).c_str()))
 		{
-			rename((SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str(), shad->GetLibraryPath());
-			return shad->GetUID();
-		}
-		else
-		{
-			LOG("Failed to copy shader in Library folder, Cannot copy %s in %s", shad_path.c_str(), (SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str());
+			if (CopyFile(shad_path.c_str(), (SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str(), FALSE))
+			{
+				rename((SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str(), shad->GetLibraryPath());
+				return shad->GetUID();
+			}
+			else
+			{
+				LOG("Failed to copy shader in Library folder, Cannot copy %s in %s", shad_path.c_str(), (SHADER_L_FOLDER + App->file_system->GetFileFromPath(file.c_str())).c_str());
+			}
 		}
 	}
 }
