@@ -20,10 +20,12 @@ ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, Com
 	text_editor.SetLanguageDefinition(lang);
 
 	// Always apply the default shader. Don't change the name of the file!!!
-	int i = App->resources->Find("Assets\\Shaders\\shader_default.shader");
+	uint64 id_s = App->resources->Find("Assets\\Shaders\\shader_default.shader");
+	res_shader = (ResourceShader*)App->resources->Get(id_s);
 
 	// Just testing
-	fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
+	//fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
+	fileToEdit = res_shader->file;
 }
 
 
