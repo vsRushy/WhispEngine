@@ -113,6 +113,8 @@ update_status ModuleGUI::Update()
 			App->file_system->SaveData(nullptr, 0u, shad->GetFile());
 			App->file_system->GenerateMetaFile(shad->GetFile(), shad->GetUID());
 			shad->SetResourcePath(std::string(SHADER_L_FOLDER + std::to_string(shad->GetUID()) + ".shader").c_str());
+			open_shader_creation = false;
+			ImGui::CloseCurrentPopup();
 		}
 
 		if (ImGui::Button("Close"))
