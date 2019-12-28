@@ -53,6 +53,6 @@ public:
 private:
 	TextEditor text_editor;
 	TextEditor::LanguageDefinition lang = TextEditor::LanguageDefinition::GLSL();
-	std::string fileToEdit; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
+	std::string fileToEdit;
 };
 

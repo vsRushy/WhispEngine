@@ -23,8 +23,6 @@ ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, Com
 	uint64 id_s = App->resources->Find("Assets\\Shaders\\shader_default.shader");
 	res_shader = (ResourceShader*)App->resources->Get(id_s);
 
-	// Just testing
-	//fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
 	fileToEdit = res_shader->file;
 }
 
@@ -77,8 +75,12 @@ void ComponentMaterial::ShowShaderTextEditor()
 			if (ImGui::MenuItem("Save"))
 			{
 				auto textToSave = text_editor.GetText();
-				/// save text....
+				
+				// Save text assets folder
 				App->file_system->SaveTextFile(textToSave.c_str(), fileToEdit.c_str());
+			
+				// Save text library folder
+				App->file_system->SaveTextFile(textToSave.c_str(), res_shader->resource_path.c_str());
 			}
 
 			ImGui::EndMenu();
