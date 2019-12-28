@@ -24,6 +24,10 @@
 
 #include "ModuleSceneIntro.h"
 
+#include "ModuleResources.h"
+#include "Resource.h"
+#include "ResourceShader.h"
+
 #include "Time.h"
 
 #include "Brofiler/Brofiler.h"
@@ -104,7 +108,11 @@ update_status ModuleGUI::Update()
 		ImGui::InputText("shader name", b, 512);
 		if (ImGui::Button("Create"))
 		{
-
+			ResourceShader* shad = (ResourceShader*)App->resources->CreateResource(Resource::Type::SHADER);
+			shad->SetFile(std::string(SHADER_A_FOLDER).append(b).append(".shader").c_str());
+			App->file_system->SaveData(nullptr, 0u, shad->GetFile());
+			App->file_system->GenerateMetaFile(shad->GetFile(), shad->GetUID());
+			shad->SetResourcePath(std::string(SHADER_L_FOLDER + std::to_string(shad->GetUID()) + ".shader").c_str());
 		}
 
 		if (ImGui::Button("Close"))
