@@ -59,6 +59,7 @@ private:
 	bool show_demo_create = false;
 
 	bool open_modal_new_scene = false;
+	bool open_shader_creation = false;
 
 	std::vector<Panel*> panels;
 

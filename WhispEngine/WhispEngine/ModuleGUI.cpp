@@ -94,6 +94,28 @@ update_status ModuleGUI::Update()
 
 	update_status ret = MainMenuBar();
 
+	if (open_shader_creation)
+		ImGui::OpenPopup("Shader Settings");
+	if (ImGui::BeginPopupModal("Shader Settings"))
+	{
+		static char b[512] = "";
+		ImGui::Text("Shader file name: ");
+		ImGui::SameLine();
+		ImGui::InputText("shader name", b, 512);
+		if (ImGui::Button("Create"))
+		{
+
+		}
+
+		if (ImGui::Button("Close"))
+		{
+			open_shader_creation = false;
+			ImGui::CloseCurrentPopup();
+		}
+
+		ImGui::EndPopup();
+	}
+
 	if (open_modal_new_scene)
 		ImGui::OpenPopup("Modal Save Scene");
 	if (ImGui::BeginPopupModal("Modal Save Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
@@ -315,6 +337,16 @@ update_status ModuleGUI::MainMenuBar()
 			}
 
 			ImGui::MenuItem("Show RayCast Mouse Picking", NULL, &App->scene_intro->show_mouse_raycast);
+
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Miscellaneous"))
+		{
+			if (ImGui::MenuItem("Create Shader"))
+			{
+				open_shader_creation = true;
+			}
 
 			ImGui::EndMenu();
 		}
