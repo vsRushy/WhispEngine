@@ -3,6 +3,7 @@
 #include <string>
 
 #include "TextEditor.h"
+#include "ResourceShader.h"
 
 class ComponentMaterial :
 	public Component
@@ -46,6 +47,8 @@ public:
 	uint64 s_uid = 0u;
 
 	bool show_shader_text_editor = false;
+
+	ResourceShader* res_shader = nullptr;
 
 private:
 	TextEditor text_editor;

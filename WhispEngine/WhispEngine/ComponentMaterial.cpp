@@ -19,7 +19,8 @@ ComponentMaterial::ComponentMaterial(GameObject* parent) : Component(parent, Com
 {
 	text_editor.SetLanguageDefinition(lang);
 
-
+	// Always apply the default shader. Don't change the name of the file!!!
+	int i = App->resources->Find("Assets\\Shaders\\shader_default.shader");
 
 	// Just testing
 	fileToEdit = "Assets/Shaders/shader_test.shader"; // NEED TO BE CHANGED LATER, AND ALSO TO LIB FOLDER!
