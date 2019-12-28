@@ -216,6 +216,11 @@ void ComponentMaterial::OnInspector()
 			show_shader_text_editor = true;
 		}
 
+		if (ImGui::Button("Compile shader"))
+		{
+			res_shader->ParseAndCreateShader();
+		}
+
 		if (select_shader)
 		{
 			float width = 500.0f;
