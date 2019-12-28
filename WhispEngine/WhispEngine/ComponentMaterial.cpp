@@ -243,7 +243,10 @@ void ComponentMaterial::OnInspector()
 					}*/
 					if (ImGui::Button((*i)->GetFile()))
 					{
+						uint64 id_s = App->resources->Find((*i)->GetFile());
+						res_shader = (ResourceShader*)App->resources->Get(id_s);
 
+						fileToEdit = res_shader->file;
 					}
 				}
 
