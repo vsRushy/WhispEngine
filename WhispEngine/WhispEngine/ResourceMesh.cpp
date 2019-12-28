@@ -95,9 +95,17 @@ bool ResourceMesh::FreeMemory()
 
 void ResourceMesh::SetGLBuffers()
 {
+	// Firstly, bind the vertex array object.
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
 	glGenBuffers(1, &vertex.id);
 	glBindBuffer(GL_ARRAY_BUFFER, vertex.id);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex.size * 3, vertex.data, GL_STATIC_DRAW);
+
+	// Define vertex layout.
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 
 	glGenBuffers(1, &index.id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index.id);

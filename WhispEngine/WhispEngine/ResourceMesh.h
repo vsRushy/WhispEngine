@@ -23,6 +23,7 @@ public:
 
 	std::string name;
 
+	uint vao = 0u;
 	Buffer<float> vertex;
 	Buffer<uint> index;
 	Buffer<float> face_normals;

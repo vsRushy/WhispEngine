@@ -92,10 +92,9 @@ ComponentMesh::~ComponentMesh()
 
 void ComponentMesh::Draw(const ResourceMesh* mesh)
 {
-	
-	glColor3f(1.f, 1.f, 1.f);
 
-		if (mesh->tex_coords.data != nullptr) {
+
+		/*if (mesh->tex_coords.data != nullptr) {
 			if (material->IsActive()) {
 				if (material->HasTexture()) {
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -127,9 +126,17 @@ void ComponentMesh::Draw(const ResourceMesh* mesh)
 
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	
-	
+		glBindTexture(GL_TEXTURE_2D, 0);*/
+
+	glBindVertexArray(mesh->vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->index.id);
+	material->res_shader->Bind();
+
+	glDrawElements(GL_TRIANGLES, mesh->index.size, GL_UNSIGNED_INT, NULL);
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	material->res_shader->Unbind();
 }
 
 void ComponentMesh::DrawWireFrame(const ResourceMesh* mesh) {
