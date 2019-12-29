@@ -13,7 +13,11 @@ uniform float time;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(position, 1.0f); 
+    vec3 position_l = position;
+
+    position_l.z += sin(time);
+
+    gl_Position = projection * view * model * vec4(position_l, 1.0f);
 };
 
 #shader fragment
@@ -25,6 +29,11 @@ void main()
 {
     color = vec4(1.0, 0.0, 0.0, 1.0);
 }
+
+
+
+
+
 
 
 
