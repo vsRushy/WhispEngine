@@ -224,9 +224,6 @@ void ComponentMaterial::OnInspector()
 
 		if (select_shader)
 		{
-			float width = 500.0f;
-			float height = 800.0f;
-			ImGui::SetNextWindowSize(ImVec2(width, height));
 			//ImGui::SetNextWindowPosCenter(ImGuiCond_::ImGuiCond_Always);
 			if (ImGui::Begin("Select Shader", &select_shader))
 			{
