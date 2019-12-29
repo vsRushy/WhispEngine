@@ -15,7 +15,10 @@ void main()
 {
     vec3 position_l = position;
 
-    position_l.z += sin(time);
+    float amplitude = 1.0f;
+
+    //position_l.z += sin(time) * amplitude;
+    position_l.z += sin(time + (position.x * 50.0)) * amplitude;
 
     gl_Position = projection * view * model * vec4(position_l, 1.0f);
 };
@@ -29,6 +32,15 @@ void main()
 {
     color = vec4(1.0, 0.0, 0.0, 1.0);
 }
+
+
+
+
+
+
+
+
+
 
 
 
