@@ -9,6 +9,8 @@ uniform mat4 view;
 uniform mat4 model;
 uniform mat4 projection;
 
+uniform float time;
+
 void main()
 {
     gl_Position = projection * view * model * vec4(position, 1.0f); 
@@ -21,8 +23,11 @@ out vec4 color;
 
 void main()
 {
-    color = vec4(0.0, 1.0, 1.0, 1.0);
+    color = vec4(1.0, 0.0, 0.0, 1.0);
 }
+
+
+
 
 
 

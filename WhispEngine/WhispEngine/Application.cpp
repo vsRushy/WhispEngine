@@ -121,6 +121,8 @@ void Application::PrepareUpdate()
 	dt = frame_time.ReadSec();
 	frame_time.Start();
 
+	time_count += dt;
+
 	switch (state)
 	{
 	case Application::NONE:

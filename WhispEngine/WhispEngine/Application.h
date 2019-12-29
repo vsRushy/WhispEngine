@@ -55,6 +55,8 @@ public:
 	uint	prev_last_sec_frame_count = 0;
 	double last_frame_ms = 0;
 
+	float time_count = 0.0f;
+
 
 private:
 	std::string engine_name;
