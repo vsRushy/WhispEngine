@@ -6,7 +6,13 @@ v Assignment3.0
 ## Description
 This is a 3D Game Engine made by Students at CITM (UPC).
 
-The project is forked originally from https://github.com/Empty-Whisper/WhispEngine.
+GitHub Repository: [Click here](https://github.com/vsRushy/WhispEngine)
+
+Release Section: [Click here](https://github.com/vsRushy/WhispEngine/releases)
+
+Video Demo Assignment 3: [Click here](https://www.youtube.com/watch?v=ra1qM5h1mAE)
+
+The project is forked originally from [Click here](https://github.com/Empty-Whisper/WhispEngine)
 
 ## Assignment 3 description
 
