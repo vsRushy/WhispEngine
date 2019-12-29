@@ -36,15 +36,15 @@ There are some things that can be corrected; see 'For Correction' below.
 
 ### Screenshots and GIFs
 
-![Showcase Wave](gifs/Showcase_Wave.gif)
+<img src="gifs/Showcase_Wave.gif" alt="Showcase Wave" width="450px"/>
 
-![Showcase Edit Compile Shader](gifs/Showcase_Edit_Compile_Shader.gif)
+<img src="gifs/Showcase_Edit_Compile_Shader.gif" alt="Showcase Edit Compile Shader" width="450px"/>
 
-![Showcase Create Select Shader](gifs/Showcase_Create_Select_Shader.gif)
+<img src="gifs/Showcase_Create_Select_Shader.gif" alt="Showcase Create Select Shader" width="450px"/>
 
 ### Videos
 
-<iframe width="420" height="318" src="https://www.youtube.com/embed/ra1qM5h1mAE"></iframe>
+<iframe width="450" height="320" src="https://www.youtube.com/embed/ra1qM5h1mAE"></iframe>
 
 ## Installing
 
@@ -92,9 +92,9 @@ To select a shader, you have to place the window outside the scene viewport. Oth
 
 ### **Gerard Marcos** [vsRushy](https://github.com/vsRushy)
 
-* Full shader system
+* Full shader system. Check description for more information.
 
-<img src="pictures/IMG_5244.JPG" alt="Gerard" width="250px"/>
+<img src="pictures/IMG_5244.JPG" alt="Gerard" width="260px"/>
 
 ## Authors and Division Of Tasks
 
