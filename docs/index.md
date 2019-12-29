@@ -36,11 +36,11 @@ There are some things that can be corrected; see 'For Correction' below.
 
 ### Screenshots and GIFs
 
-![Showcase Wave](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Wave.gif)
+![Showcase Wave](gifs/Showcase_Wave.gif)
 
-![Showcase Edit Compile Shader](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Edit_Compile_Shader.gif)
+![Showcase Edit Compile Shader](gifs/Showcase_Edit_Compile_Shader.gif)
 
-![Showcase Create Select Shader](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Create_Select_Shader.gif)
+![Showcase Create Select Shader](gifs/Showcase_Create_Select_Shader.gif)
 
 ### Videos
 
@@ -94,7 +94,7 @@ To select a shader, you have to place the window outside the scene viewport. Oth
 
 * Full shader system
 
-<img src="https://github.com/vsRushy/WhispEngine/blob/master/docs/pictures/IMG_5244.JPG" alt="Gerard" width="230px"/>
+<img src="pictures/IMG_5244.JPG" alt="Gerard" width="250px"/>
 
 ## Authors and Division Of Tasks
 
