@@ -44,7 +44,7 @@ There are some things that can be corrected; see 'For Correction' below.
 
 ### Videos
 
-<iframe width="420" src="https://www.youtube.com/embed/ra1qM5h1mAE"></iframe>
+<iframe width="420" height="318" src="https://www.youtube.com/embed/ra1qM5h1mAE"></iframe>
 
 ## Installing
 
