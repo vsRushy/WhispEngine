@@ -34,7 +34,15 @@ In the demo, there is a wave plane that changes its color depending on the curre
 
 There are some things that can be corrected; see 'For Correction' below.
 
-### Installing
+### Screenshots and GIFs
+
+![Showcase Wave](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Wave.gif)
+
+![Showcase Edit Compile Shader](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Edit_Compile_Shader.gif)
+
+![Showcase Create Select Shader](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Create_Select_Shader.gif)
+
+## Installing
 
 Go to our github release page and download the las version .zip : 
 [EmptyWhispers](https://github.com/vsRushy/WhispEngine/releases)
@@ -53,7 +61,8 @@ Textures cannot be rendered with shaders.
 
 To select a shader, you have to place the window outside the scene viewport. Otherwise it will close and won't click the selected shader.
 
-#### Contols
+## Contols
+
 * View around:  	         	Right click
 * Move through viewport: 	WASD + Right click
 * Speed up:  	      	Shift	         
@@ -64,7 +73,7 @@ To select a shader, you have to place the window outside the scene viewport. Oth
 * Orbit object:		Alt + Left click
 * Deselect object		Click on any part of Hierarchy panel or out of an object in scene
 
-#### Panels Short Cuts
+## Panels Short Cuts
 * Configuration:         Shift + 1
 * Console		  Shift + 2
 * Hierarchy:  	  Shift + 3
