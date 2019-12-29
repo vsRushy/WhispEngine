@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "glew-2.1.0/include/GL/glew.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 #include "ResourceShader.h"
 
@@ -48,6 +49,11 @@ void ResourceShader::SetUniform1f(const std::string& name, const float& value)
 void ResourceShader::SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3)
 {
 	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+}
+
+void ResourceShader::SetUniformMat4f(const std::string& name, const math::float4x4& matrix)
+{
+	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, matrix.ptr());
 }
 
 void ResourceShader::ParseAndCreateShader()

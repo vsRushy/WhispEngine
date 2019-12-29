@@ -37,6 +37,7 @@ public:
 
 	void SetUniform1f(const std::string& name, const float& value);
 	void SetUniform4f(const std::string& name, const float& v0, const float& v1, const float& v2, const float& v3);
+	void SetUniformMat4f(const std::string& name, const math::float4x4& matrix);
 
 private:
 	SHADER_PROGRAM_SOURCE ParseShader(const std::string& path);

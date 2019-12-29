@@ -132,6 +132,11 @@ void ComponentMesh::Draw(const ResourceMesh* mesh)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->index.id);
 	material->res_shader->Bind();
 
+	ComponentTransform* tmp_t = (ComponentTransform*)this->object->GetComponent(ComponentType::TRANSFORM);
+	material->res_shader->SetUniformMat4f("view", App->camera->scene_camera->GetViewMatrix());
+	material->res_shader->SetUniformMat4f("model", tmp_t->GetGlobalMatrix().Transposed());
+	material->res_shader->SetUniformMat4f("projection", App->camera->scene_camera->GetProjectionMatrix());
+
 	glDrawElements(GL_TRIANGLES, mesh->index.size, GL_UNSIGNED_INT, NULL);
 
 	glBindVertexArray(0);
