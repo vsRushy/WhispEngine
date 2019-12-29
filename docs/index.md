@@ -42,6 +42,10 @@ There are some things that can be corrected; see 'For Correction' below.
 
 ![Showcase Create Select Shader](https://github.com/vsRushy/WhispEngine/blob/master/docs/gifs/Showcase_Create_Select_Shader.gif)
 
+### Videos
+
+<iframe width="420" src="https://www.youtube.com/embed/ra1qM5h1mAE"></iframe>
+
 ## Installing
 
 Go to our github release page and download the las version .zip : 
