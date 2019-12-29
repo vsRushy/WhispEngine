@@ -8,9 +8,30 @@ This is a 3D Game Engine made by Students at CITM (UPC).
 
 The project is forked originally from https://github.com/Empty-Whisper/WhispEngine.
 
+## Assignment 3 description
+
+(Gerard Marcos Freixas)
+
+The assignment 3 consisted of creating a Shader System which uses OpenGL shaders pipeline.
+
+You can create new shaders by simply creating a .shader file on the correspondant Assets folder (the engine will internally generate the file on the Library folder, so you don't have to worry about that) or by clicking on the Create New Shader button on the navigation bar at the top (Miscellaneous -> Create Shader). Note that if you create the shader in-engine, you just need to type the name of the shader/file, withouth the .shader extension.
+
+You can also change the shader a selected game object is using by clicking the button on the inspector. Changes will be applied immediately.
+
+Furthermore, you can edit the current shader by clicking the edit button on the inspector. A text editor will pop up and you can edit the shader there. Remember to save changes!
+
+There is another step when you finished editing the shader. Just click the compile button on the inspector. You need to click this button even if you edit the shader from outside the engine (e.g. a 3rd party program, like VS Code) you need to compile the shader; otherwise it won't work properly, needless to say.
+
+It is important to mention that all shader files must follow the same structure as the already included in the engine. For instance, placing both vertex and fragment shaders in one-file is necessary and it is the only way to load and compile shaders. The parsing system automatically detects that, and gives error if it is incorrect.
+
+In the demo, there is a wave plane that changes its color depending on the current height.
+
+There are some things that can be corrected; see 'For Correction' below.
+
 ### Installing
+
 Go to our github release page and download the las version .zip : 
-[EmptyWhispers](https://github.com/Empty-Whisper)
+[EmptyWhispers](https://github.com/vsRushy/WhispEngine/releases)
 
 Extract .zip files inside a folder and open the .exe file.
 
@@ -21,6 +42,10 @@ There is a Menu in Main Menu Bar called "Debug Tools" to be able to correct bett
 * Octree: Main Menu Bar -> Octree -> Show scene
 * MousePicking: Main Menu Bar -> Mouse picking RayCast
 * AABB/OBB: In each ComponentMesh on inspector can change to visualize the two bounging boxes, aabb(green) obb(blue)
+
+Textures cannot be rendered with shaders.
+
+To select a shader, you have to place the window outside the scene viewport. Otherwise it will close and won't click the selected shader.
 
 #### Contols
 * View around:  	         	Right click
@@ -47,6 +72,8 @@ There is a Menu in Main Menu Bar called "Debug Tools" to be able to correct bett
 ## Authors and Division Of Tasks (after Fork)
 
 ### **Gerard Marcos** [vsRushy](https://github.com/vsRushy)
+
+* Full shader system
 
 ## Authors and Division Of Tasks
 
