@@ -81,7 +81,7 @@ To select a shader, you have to place the window outside the scene viewport. Oth
 
 * Full shader system
 
-<img src="https://github.com/vsRushy/WhispEngine/blob/master/docs/pictures/IMG_5244.JPG" width="230">
+<img src="docs/pictures/IMG_5244.JPG" width="230">
 
 ## Authors and Division Of Tasks
 
