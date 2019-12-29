@@ -54,9 +54,9 @@
                 "fullscreen_desktop": false,
                 "resizable": true
             },
-            "height": 1024,
+            "height": 768,
             "size": 1,
-            "width": 1280
+            "width": 1024
         }
     }
 }
