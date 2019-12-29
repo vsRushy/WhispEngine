@@ -102,11 +102,7 @@ void ResourceMesh::SetGLBuffers()
 	glGenBuffers(1, &vertex.id);
 	glBindBuffer(GL_ARRAY_BUFFER, vertex.id);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex.size * 3, vertex.data, GL_STATIC_DRAW);
-
-	// Define vertex layout.
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
-
+	// 3*
 	glGenBuffers(1, &index.id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index.id);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * index.size, index.data, GL_STATIC_DRAW);
@@ -128,4 +124,25 @@ void ResourceMesh::SetGLBuffers()
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_normals.id);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertex_normals.size, vertex_normals.data, GL_STATIC_DRAW);
 	}
+
+	// Layout.
+	glBindBuffer(GL_ARRAY_BUFFER, vertex.id);
+
+	// Vertex position
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+		(void*)0);
+	glEnableVertexAttribArray(0);
+
+	// Vertex normal
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+		(void*)12);
+	glEnableVertexAttribArray(1);
+
+	// Vertex uvs
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+		(void*)24);
+	glEnableVertexAttribArray(2);
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
