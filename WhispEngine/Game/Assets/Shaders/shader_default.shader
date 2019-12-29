@@ -11,9 +11,11 @@ uniform mat4 projection;
 
 uniform float time;
 
+out vec3 position_l;
+
 void main()
 {
-    vec3 position_l = position;
+    position_l = position;
 
     float amplitude = 0.75;
 
@@ -27,10 +29,19 @@ void main()
 
 out vec4 color;
 
+in vec3 position_l;
+
 void main()
 {
-    color = vec4(0.0, 0.0, 1.0, 1.0);
+    color = vec4(0.0, 0.0, position_l.z, 1.0);
 }
+
+
+
+
+
+
+
 
 
 
